@@ -1,0 +1,100 @@
+<!--
+#!/usr/bin/env ruby
+# シーケンシングテストプログラム
+# ver 0.4
+# 作成日 2005/11/24
+# 最終更新日 2005/12/12
+-->
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+<script language="JavaScript">
+<!--
+function fnc_alert(msg){
+    window.alert(msg);
+}
+
+function getNext() {
+	xmlhttp = createXMLHttp();
+	pageURL="ruby/seqcgi.rb"
+	if (xmlhttp)
+	{
+		document.myform.next.disabled=true;
+		xmlhttp.onreadystatechange = setPageData;
+		xmlhttp.open('GET', pageURL);
+		xmlhttp.send(null);
+	}else{
+	alert("XMLHttpRequest失敗");
+	}
+}
+
+function change_Lv(level) {
+	xmlhttp = createXMLHttp();
+	pageURL="ruby/changeLvcgi.rb?level="+level
+	if (xmlhttp)
+	{
+		//document.myform.next.disabled=true;
+		xmlhttp.onreadystatechange = setPageData;
+		xmlhttp.open('GET', pageURL);
+		xmlhttp.send(null);
+	}else{
+	alert("XMLHttpRequest失敗");
+	}
+}
+
+function setPageData()
+{
+	if (xmlhttp.readyState == 4 && xmlhttp.status == 200)
+	{
+		document.myform.next.disabled=false;
+		if(xmlhttp.responseText!="")
+		document.getElementById("disp").innerHTML = xmlhttp.responseText;
+	}
+}
+
+function reset_win(){
+	pageURL="ruby/resetcgi.rb"
+	if (xmlhttp)
+	{
+		xmlhttp.open('GET', pageURL);
+		xmlhttp.send(null);
+		alert("初期化しました");
+	}else{
+	alert("XMLHttpRequest失敗");
+	}
+}
+
+// XMLHttpsオブジェクト作成
+function createXMLHttp()
+{
+		try {
+			return new ActiveXObject ("Microsoft.XMLHTTP");
+		}catch(e){
+		try {
+			return new XMLHttpRequest();
+		}catch(e) {
+			return null;
+		}
+	}
+	return null;
+}
+//-->
+</script>
+<title>ADEL</title>
+<link title="default.css" rel="stylesheet" href="default.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<form name="myform">
+<input type="button" value="次へ" name="next" onClick="getNext()">
+<input type="button" value="初期化" onClick="reset_win()">
+<input type="button" value="上級者用" onClick="change_Lv('H')">
+<input type="button" value="中級者用" onClick="change_Lv('M')">
+<input type="button" value="初級者用" onClick="change_Lv('L')">
+</form>
+<hr/>
+<div id="disp"></div>
+</body>
+</html>

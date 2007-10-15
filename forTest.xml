@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<examination id="test_000" ordering="_random">
+	<group id="q1" mark="20">
+		<item id="q1_0" type="random">
+			<selection_correct>true</selection_correct>
+			<passing_grade>1.0</passing_grade>
+		</item>
+		<item id="q1_1" type="0">
+			<passing_grade>0.6</passing_grade>
+		</item>
+		<item id="q1_2" type="type">
+			<selection_type>select_single_img</selection_type>
+			<selection_correct>false</selection_correct>
+			<passing_grade>0.2</passing_grade>
+		</item>
+		<item id="q1_3" type="3">
+			<passing_grade>1.0</passing_grade>
+		</item>
+	</group>
+	<group id="q2" mark="30">
+		<item id="q2_0" type="random">
+			<selection_correct>true</selection_correct>
+			<passing_grade>1.0</passing_grade>
+		</item>
+		<item id="q2_1" type="3">
+			<passing_grade>1.0</passing_grade>
+		</item>
+		<item id="q2_2" type="type">
+			<selection_type>select_multi</selection_type>
+			<selection_correct>false</selection_correct>
+			<passing_grade>0.2</passing_grade>
+		</item>
+	</group>
+	<group id="q3" mark="50">
+		<item id="q3_0" type="type">
+			<selection_type>select_single_img</selection_type>
+			<selection_correct>false</selection_correct>
+			<passing_grade>0.2</passing_grade>
+		</item>
+		<item id="q3_1" type="random">
+			<selection_correct>true</selection_correct>
+			<passing_grade>1.0</passing_grade>
+		</item>
+		<item id="q3_2" type="3">
+			<passing_grade>1.0</passing_grade>
+		</item>
+	</group>
+</examination>

@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<problem_set id="q1">
+    <item id="0" type="select_single">
+        <prob>Q1.問題候補1</prob>
+        <response id="0">選択肢1</response>
+        <response id="1">選択肢2</response>
+        <hints>ヒント</hints>
+        <correct id="0" />
+        <explanation>模範解答,解説</explanation>
+    </item>
+    <item id="1" type="select_multi">
+        <prob>Q1.問題候補2</prob>
+        <response id="0">選択肢1</response>
+        <response id="1">選択肢2</response>
+        <response id="2">選択肢3</response>
+        <response id="3">選択肢4</response>
+        <hints>ヒント</hints>
+        <correct id="0,1,3" />
+        <explanation>模範解答,解説</explanation>
+    </item>
+    <item id="2" type="select_single_img">
+        <prob>Q1.問題候補3</prob>
+        <response id="0">
+            <img src="./db/q1_img/select1.jpg" />
+        </response>
+        <response id="1">
+            <img src="./db/q1_img/select2.jpg" />
+        </response>
+        <hints>ヒント</hints>
+        <correct id="0" />
+        <explanation>模範解答,解説</explanation>
+    </item>
+    <item id="3" type="select_single">
+        <prob>Q1.問題候補4</prob>
+        <response id="0">選択肢1</response>
+        <response id="1">選択肢2</response>
+        <hints>ヒント</hints>
+        <correct id="0" />
+        <explanation>模範解答,解説</explanation>
+    </item>
+</problem_set>

@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<evaluate_log uid="user_id">
+	<exam id="test_000" count ="0">
+		<group id="q1" rate="0.5" mark="20">
+			<item id="0">
+				<point>0.2</point>
+			</item>
+			<item id="1">
+				<point>0.2</point>
+			</item>
+			<item id="2">
+				<point>0.2</point>
+			</item>
+		</group>
+		<group id="q2" evaluate="">
+			<item id="0" evaluate="" />
+			<item id="1" evaluate="" />
+		</group>
+	</exam>
+	<exam id="test_id" count ="1">
+		<group id="q1" evaluate="">
+			<item id="" evaluate="" />
+		</group>
+	</exam>
+</evaluate_log>

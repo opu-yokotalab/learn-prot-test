@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<problem_set id="Q3">
+    <item id="0" type="select_single">
+        <question><p>[a]に当てはまるものを選び、84点から65点の範囲を良と出力するプログラムを完成させなさい</p><pre>
+#include &lt;stdio.h&gt;
+ 
+int main(void) {
+  int x;
+
+  printf(&quot;得点を入力せよ-&gt;&quot;); scanf(&quot;%d&quot;, &amp;x);
+  if([a])
+    puts(&quot;良&quot;);
+  return 0;
+}
+</pre></question>
+        <response id="0">x &gt;= 65 &amp;&amp; x &lt; 85</response>
+        <response id="1">x &gt;= 65 || x &lt; 85</response>
+        <hints>ヒント</hints>
+        <evaluate>
+        	<function></function>
+	<correct id="0" />
+	<score>1</score>
+        	<weight correct="1" incorrect="-1" />
+        	<point>30</point>
+        </evaluate>
+        <explanation>論理積演算子と論理和演算子の項を参照のこと</explanation>
+    </item>
+</problem_set>

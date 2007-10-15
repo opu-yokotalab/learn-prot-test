@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<problem_set id="q2">
+    <item id="0" type="select_single">
+        <question><p>[a],[b]に当てはまるものを選び、85点以上は優、84点から65点までの時は良、64点以下の時は可と出力するプログラムを完成させなさい。</p>
+<pre>
+#include &lt;stdio.h&gt;
+ 
+int main(void) {
+  int x;
+
+  printf(&quot;得点を入力せよ-&gt;&quot;); scanf(&quot;%d&quot;, &amp;x);
+  if([a])
+    puts(&quot;可&quot;);
+  else if([b])
+         puts(&quot;優&quot;);
+       else
+         puts(&quot;良&quot;);
+  return 0;
+}
+</pre></question>
+        <response id="0">[a] x &lt;= 65 ,[b] x &lt; 85</response>
+        <response id="1">[a] x &lt; 65 ,[b] x &gt;= 85</response>
+        <response id="2">[a] x &gt;= 65 ,[b] x &gt; 85</response>
+        <hints>ヒント</hints>
+        <evaluate>
+        	<function></function>
+	<correct id="1" />
+	<score>1</score>
+        	<weight correct="1" incorrect="-1" />
+        	<point>30</point>
+        </evaluate>
+        <explanation>2つのオペランドの関係を表現する、比較演算子の項を参照のこと。</explanation>
+    </item>
+    <item id="1" type="select_single">
+        <question><p>[a],[b]に当てはまるものを選び、85点以上は優、84点から65点までの時は良、64点以下の時は可と出力するプログラムを完成させなさい。</p><pre>
+#include &lt;stdio.h&gt;
+ 
+int main(void) {
+  int x;
+
+  printf(&quot;得点を入力せよ-&gt;&quot;); scanf(&quot;%d&quot;, &amp;x);
+  if([a]){
+    if([b])
+         puts(&quot;優&quot;);
+       else
+         puts(&quot;良&quot;);
+    }else
+      puts(&quot;可&quot;);
+  return 0;
+}
+</pre></question>
+        <response id="0">[a] x &lt;= 65 ,[b] x &lt; 85</response>
+        <response id="1">[a] x &gt;= 65 ,[b] x &gt;= 85</response>
+        <response id="2">[a] x &gt;= 65 ,[b] x &gt; 85</response>
+        <hints>ヒント</hints>
+        <evaluate>
+        	<function></function>
+	<correct id="1" />
+	<score>1</score>
+        	<weight correct="1" incorrect="-1" />
+        	<point>30</point>
+        </evaluate>
+        <explanation>2つのオペランドの関係を表現する、比較演算子の項を参照のこと。</explanation>
+    </item>
+</problem_set>
