@@ -2,7 +2,7 @@
 
 var blnRequestEnabled = true; // エラーフラグ
 // ベースとなるURL
-var baseURL = "http://192.168.204.128/~learn/cgi-bin/prot_test/adel_exam.cgi"; 
+var baseURL = "/~learn/cgi-bin/prot_test/adel_exam.cgi"; 
 // var xmlhttp = null; // XMLHttp object
 
 function fnc_alert(msg){
