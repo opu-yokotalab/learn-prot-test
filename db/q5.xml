@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<problem_set id="q5">
+  <item id="0" type="select_single">
+    <question>
+      <p>下記のプログラムは漸化式、Xn = 2*Xn-1 + 1, X0 = 0　のn項目を求めるプログラムです。プログラム中の[ a ]の箇所に適当なものを選択してください。</p>
+      <pre>/* 再帰を利用した漸化式の実装例 */
+int xn2(int n){
+  if(n == 0) return 0;
+  if(n &gt; 0) return [ a ];
+}</pre>
+    </question>
+    <response id="0">2*xn2(n-1)</response>
+    <response id="1">2*xn2(n-1)+1</response>
+    <hints>解答と問題の漸化式を注意して見てみよう。</hints>
+    <evaluate>
+      <function></function>
+      <correct id="1" />
+      <score>1</score>
+      <weight correct="1" incorrect="-1" />
+      <point>30</point>
+    </evaluate>
+    <explanation>今一つ腑に落ちない人は漸化式の項を見直そう。</explanation>
+  </item>
+</problem_set>
