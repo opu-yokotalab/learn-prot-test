@@ -24,7 +24,7 @@ int main(void) {
         	<correct id="0" />
         	<score>1</score>
         	<weight correct="1" incorrect="-1" />
-        	<point>20</point>
+        	<point>30</point>
         </evaluate>
         <explanation>2つのオペランドの関係を表現する、比較演算子の項を参照のこと。</explanation>
     </item>

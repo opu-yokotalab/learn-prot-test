@@ -19,7 +19,7 @@ int fibonacci(int n){
       <correct id="2" />
       <score>1</score>
       <weight correct="1" incorrect="-1" />
-      <point>50</point>
+      <point>40</point>
     </evaluate>
     <explanation>・・・</explanation>
   </item>

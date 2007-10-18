@@ -21,7 +21,7 @@ int main(void) {
 	<correct id="0" />
 	<score>1</score>
         	<weight correct="1" incorrect="-1" />
-        	<point>50</point>
+        	<point>40</point>
         </evaluate>
         <explanation>論理積演算子と論理和演算子の項を参照のこと</explanation>
     </item>

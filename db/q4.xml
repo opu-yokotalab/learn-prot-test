@@ -18,7 +18,7 @@ int fact(int n) {
       <correct id="0" />
       <score>1</score>
       <weight correct="1" incorrect="-1" />
-      <point>20</point>
+      <point>30</point>
     </evaluate>
     <explanation>階乗の教材をもう一度復習してみよう。</explanation>
   </item>
