@@ -1,9 +1,9 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <problem_set id="q6">
   <item id="0" type="select_single">
     <question>
       <p>下記のプログラムはフィボナッチ数を求めるためのものです。プログラム中の[ a ]の箇所に適当なものを選択してください。</p>
-      <pre>/* 再帰呼出しを利用した Fibonacciの実装例 */
+      <pre class="prettyprint">/* 再帰呼出しを利用した Fibonacciの実装例 */
 int fibonacci(int n){
   if(n == 0) return 0;
   else if (n == 1) return 1;

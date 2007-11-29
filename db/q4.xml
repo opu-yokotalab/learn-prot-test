@@ -1,9 +1,9 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <problem_set id="q4">
   <item id="0" type="select_single">
     <question>
       <p>下記のプログラムは階乗 n! を計算するためのものです。プログラム中の[ a ]の箇所として、適当なものを選択しなさい。</p>
-      <pre>/* 階乗n!を計算する */ 
+      <pre class="prettyprint">/* 階乗n!を計算する */ 
 int fact(int n) { 
    if (n==0)  return 1; 
    else return [ a ];
