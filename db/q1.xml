@@ -10,9 +10,9 @@ int main(void) {
 
   printf(&quot;得点を入力せよ-&gt;&quot;); scanf(&quot;%d&quot;, &amp;x);
   if([a])
-    puts(&quot;不合格&quot;);
+    puts(&quot;合格&quot;);
   else
-    puts&quot;合格&quot;);
+    puts(&quot;不合格&quot;);
   return 0;
 }
 </pre>
