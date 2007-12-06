@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <problem_set id="mystring">
     <item id="0" type="select_single">
-        <question><p>[a]に当てはまるものは何か？以下の3つから一つ選択しなさい。</p>
+        <question><p>[A]に当てはまるものは何か？以下の3つから一つ選択しなさい。</p>
 </question>
 <response id="0">ct[n] != '\0'</response>
 <response id="1">str[n] != '\0'</response>
@@ -21,7 +21,7 @@
 
 
     <item id="1" type="select_single">
-        <question><p>[b]に当てはまるものは何か？以下の3つから一つ選択しなさい。</p>
+        <question><p>[B]に当てはまるものは何か？以下の3つから一つ選択しなさい。</p>
 </question>
 <response id="0">ct[n] = str[n]</response>
 <response id="1">str[n] = ct[n]</response>
@@ -41,7 +41,7 @@
 
 
     <item id="2" type="select_single">
-        <question><p>[c]に当てはまるものは何か？以下の3つから一つ選択しなさい。</p>
+        <question><p>[C]に当てはまるものは何か？以下の3つから一つ選択しなさい。</p>
 </question>
 <response id="0">str[n] = '\0'</response>
 <response id="1">ct[n] = '\0'</response>
@@ -61,7 +61,7 @@
 
 
     <item id="3" type="select_single">
-        <question><p>[d]に当てはまるものは何か？以下の3つから一つ選択しなさい。</p>
+        <question><p>[D]に当てはまるものは何か？以下の3つから一つ選択しなさい。</p>
 </question>
 <response id="0">char str, char ct</response>
 <response id="1">char *str</response>
@@ -83,7 +83,7 @@
 
 
     <item id="4" type="select_single">
-        <question><p>[e]に当てはまるものは何か？以下の3つから一つ選択しなさい。</p>
+        <question><p>[E]に当てはまるものは何か？以下の3つから一つ選択しなさい。</p>
 </question>
 <response id="0">7</response>
 <response id="1">strlen(str)</response>
@@ -103,7 +103,7 @@
 
 
     <item id="5" type="select_single">
-        <question><p>[f]に当てはまるものは何か？以下の3つから一つ選択しなさい。</p>
+        <question><p>[F]に当てはまるものは何か？以下の3つから一つ選択しなさい。</p>
 </question>
 <response id="0">str[n] != ct[n]</response>
 <response id="1">str[n] == '\0'</response>
@@ -123,7 +123,7 @@
 
 
     <item id="6" type="select_single">
-        <question><p>[g]に当てはまるものは何か？以下の3つから一つ選択しなさい。</p>
+        <question><p>[G]に当てはまるものは何か？以下の3つから一つ選択しなさい。</p>
 </question>
 <response id="0">ct[n] != '\0'</response>
 <response id="1">str[n] != '\0'</response>
@@ -142,7 +142,7 @@
 
 
     <item id="7" type="select_single">
-        <question><p>[h]に当てはまるものは何か？以下の3つから一つ選択しなさい。</p>
+        <question><p>[H]に当てはまるものは何か？以下の3つから一つ選択しなさい。</p>
 </question>
 <response id="0">n++;</response>
 <response id="1">n+=2;</response>
@@ -161,7 +161,7 @@
 
 
     <item id="8" type="select_single">
-        <question><p>[i]に当てはまるものは何か？以下の3つから一つ選択しなさい。</p>
+        <question><p>[I]に当てはまるものは何か？以下の3つから一つ選択しなさい。</p>
 </question>
 <response id="0">(unsigned char)str[n]</response>
 <response id="1">str[n]</response>
