@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<problem_set id="my_string">
+<problem_set id="mystring">
     <item id="0" type="select_single">
         <question><p>[a]に当てはまるものは何か？以下の3つから一つ選択しなさい。</p>
 </question>
