@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<problem_set id="mystring">
+<problem_set id="personlist">
     <item id="0" type="select_single">
-        <question><p>[a]に当てはまるものは何か？以下の3つから一つ選択しなさい。</p>
+        <question><p>[A]に当てはまるものは何か？以下の3つから一つ選択しなさい。</p>
 </question>
-<response id="0">ct[n] != '\0'</response>
-<response id="1">str[n] != '\0'</response>
-<response id="2">ct[n] != '\n'</response>
+<response id="0">personList[n].name,"\0"</response>
+<response id="1">personList[n].name == '\0'</response>
+<response id="2">personList[n].name.equal("\0")</response>
 <hints>ヒント</hints>
 <evaluate>
 	<function></function>
@@ -14,18 +14,18 @@
 	<weight correct="1" incorrect="-1" />
 	<point>20</point>
 </evaluate>
-<explanation>繰り返しの条件：文字列ctの末尾が来るまで。</explanation>
+<explanation>strcmpの引数は何であったか？思い出そう。</explanation>
 		</item>
 
 
 
 
     <item id="1" type="select_single">
-        <question><p>[b]に当てはまるものは何か？以下の3つから一つ選択しなさい。</p>
+        <question><p>[B]に当てはまるものは何か？以下の3つから一つ選択しなさい。※Nはレコード数の最大値．問いの場合では#defineにより5が定義されている．</p>
 </question>
-<response id="0">ct[n] = str[n]</response>
-<response id="1">str[n] = ct[n]</response>
-<response id="2">str[n] = str[n]</response>
+<response id="0">n &gt; N</response>
+<response id="1">n &lt; N</response>
+<response id="2">n</response>
 <hints>ヒント</hints>
 <evaluate>
 	<function></function>
@@ -34,38 +34,38 @@
 	<weight correct="1" incorrect="-1" />
 	<point>30</point>
 </evaluate>
-<explanation>処理の内容：ctをstrにコピーする。</explanation>
+<explanation>ここのif文はなぜ必要なのでしょうか？それを考えれば分かると思います．</explanation>
 		</item>
 
 
 
 
     <item id="2" type="select_single">
-        <question><p>[c]に当てはまるものは何か？以下の3つから一つ選択しなさい。</p>
+        <question><p>[C],[D]に当てはまるものは何か？以下の3つから一つ選択しなさい。</p>
 </question>
-<response id="0">str[n] = '\0'</response>
-<response id="1">ct[n] = '\0'</response>
-<response id="2">str[n] = '\n'</response>
+<response id="0">[C] strcpy(personList[n].name,name); [D] strcpy(personList[n].tel,tel);</response>
+<response id="1">[C] personList[n].name = name; [D] personList[n].tel = tel;</response>
+<response id="2">[C] strcpy(personList[n].name,"name"); [D] strcpy(personList[n].tel,"tel");</response>
 <hints>ヒント</hints>
 <evaluate>
 	<function></function>
 	<correct id="0" />
 	<score>1</score>
 	<weight correct="1" incorrect="-1" />
-	<point>20</point>
+	<point>40</point>
 </evaluate>
-<explanation>strの末尾にヌル文字を追加しておくのを忘れてはいけない。</explanation>
+<explanation>安い引っかけ問題ですね。これはC言語です。Javaではありません。</explanation>
 		</item>
 
 
 
 
     <item id="3" type="select_single">
-        <question><p>[d]に当てはまるものは何か？以下の3つから一つ選択しなさい。</p>
+        <question><p>[E]に当てはまるものは何か？以下の3つから一つ選択しなさい。</p>
 </question>
-<response id="0">char str, char ct</response>
-<response id="1">char *str</response>
-<response id="2">char *str, char *ct</response>
+<response id="0">strcpy(personList[i].name,name) </response>
+<response id="1">strcat(personList[i].name,name) </response>
+<response id="2">strcmp(personList[i].name,name)</response>
 <hints>ヒント</hints>
 <evaluate>
 	<function></function>
@@ -74,7 +74,7 @@
 	<weight correct="1" incorrect="-1" />
 	<point>10</point>
 </evaluate>
-<explanation>前のページの簡単な内容の方に答えが載ってますよ。</explanation>
+<explanation>選択肢をよく見てみましょう。</explanation>
 		</item>
 
 
@@ -83,31 +83,31 @@
 
 
     <item id="4" type="select_single">
-        <question><p>[e]に当てはまるものは何か？以下の3つから一つ選択しなさい。</p>
+        <question><p>[F][G]に当てはまるものは何か？以下の3つから一つ選択しなさい。</p>
 </question>
-<response id="0">7</response>
-<response id="1">strlen(str)</response>
-<response id="2">strlen(str) - 1</response>
+<response id="0">[F] strcpy(personList[i].name,"\0"); [G] strcpy(personList[i].tel,"\0");</response>
+<response id="1">[F] personList[i].name = '\0'; [G] personList.tel = '\0';</response>
+<response id="2">[F] personList[i].name == '\0'; [G] personList.tel == '\0';</response>
 <hints>ヒント</hints>
 <evaluate>
 	<function></function>
-	<correct id="1" />
+	<correct id="0" />
 	<score>1</score>
 	<weight correct="1" incorrect="-1" />
-	<point>40</point>
+	<point>30</point>
 </evaluate>
-<explanation>文字列strの末尾の番地を指定します。四の五の言わずに動かしてみれば分かりますよ。</explanation>
+<explanation>よくある引っかけ問題です。文字列操作についてもう一度復習しましょう。</explanation>
 		</item>
 
 
 
 
     <item id="5" type="select_single">
-        <question><p>[f]に当てはまるものは何か？以下の3つから一つ選択しなさい。</p>
+        <question><p>[H]に当てはまるものは何か？以下の3つから一つ選択しなさい。</p>
 </question>
-<response id="0">str[n] != ct[n]</response>
-<response id="1">str[n] == '\0'</response>
-<response id="2">str[n] == ct[n]</response>
+<response id="0">personList[i].number</response>
+<response id="1">personList[i].tel</response>
+<response id="2">personList[i].name</response>
 <hints>ヒント</hints>
 <evaluate>
 	<function></function>
@@ -116,67 +116,47 @@
 	<weight correct="1" incorrect="-1" />
 	<point>20</point>
 </evaluate>
-<explanation>比較を継続する条件ようく思い出してみましょう。</explanation>
+<explanation>標準出力の文との対応を注意しましょう。</explanation>
 		</item>
 
 
 
 
     <item id="6" type="select_single">
-        <question><p>[g]に当てはまるものは何か？以下の3つから一つ選択しなさい。</p>
+        <question><p>[I]に当てはまるものは何か？以下の3つから一つ選択しなさい。</p>
 </question>
-<response id="0">ct[n] != '\0'</response>
-<response id="1">str[n] != '\0'</response>
-<response id="2">str[n] != '\n'</response>
+<response id="0">personList[i].tel</response>
+<response id="1">personList[n].tel</response>
+<response id="2">personList[i].tel[3]</response>
+<hints>ヒント</hints>
+<evaluate>
+	<function></function>
+	<correct id="0" />
+	<score>1</score>
+	<weight correct="1" incorrect="-1" />
+	<point>15</point>
+</evaluate>
+<explanation>標準出力の文との対応に注意しましょう。</explanation>
+		</item>
+
+
+
+    <item id="7" type="select_single">
+        <question><p>[J]に当てはまるものは何か？以下の3つから一つ選択しなさい。</p>
+</question>
+<response id="0">personList[n].number</response>
+<response id="1">personList[i].number</response>
+<response id="2">personList[i].number + 1</response>
 <hints>ヒント</hints>
 <evaluate>
 	<function></function>
 	<correct id="1" />
 	<score>1</score>
 	<weight correct="1" incorrect="-1" />
-	<point>30</point>
+	<point>15</point>
 </evaluate>
-<explanation>比較を継続する条件をようく思い出してみましょう。あと，問題のソースプログラムもチェックしましょう。</explanation>
+<explanation>標準出力の文との対応に注意しましょう。</explanation>
 		</item>
-
-
-
-    <item id="7" type="select_single">
-        <question><p>[h]に当てはまるものは何か？以下の3つから一つ選択しなさい。</p>
-</question>
-<response id="0">n++;</response>
-<response id="1">n+=2;</response>
-<response id="2">str++;</response>
-<hints>ヒント</hints>
-<evaluate>
-	<function></function>
-	<correct id="0" />
-	<score>1</score>
-	<weight correct="1" incorrect="-1" />
-	<point>5</point>
-</evaluate>
-<explanation>簡単でしょ？配点は低いですよ。</explanation>
-		</item>
-
-
-
-    <item id="8" type="select_single">
-        <question><p>[i]に当てはまるものは何か？以下の3つから一つ選択しなさい。</p>
-</question>
-<response id="0">(unsigned char)str[n]</response>
-<response id="1">str[n]</response>
-<response id="2">(unsigned char)ct[n]</response>
-<hints>ヒント</hints>
-<evaluate>
-	<function></function>
-	<correct id="0" />
-	<score>1</score>
-	<weight correct="1" incorrect="-1" />
-	<point>10</point>
-</evaluate>
-<explanation>文字の比較は unsigned char を使用します。</explanation>
-		</item>
-
 
 
 </problem_set>
