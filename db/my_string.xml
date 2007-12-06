@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problem_set id="my_string">
+    <item id="0" type="select_single">
+        <question><p>[a]に当てはまるものは何か？以下の3つから一つ選択しなさい。</p>
+</question>
+<response id="0">[a] x &lt;= 65 ,[b] x &lt; 85</response>
+<response id="1">[a] x &lt; 65 ,[b] x &gt;= 85</response>
+<response id="2">[a] x &gt;= 65 ,[b] x &gt; 85</response>
+<hints>ヒント</hints>
+<evaluate>
+	<function></function>
+	<correct id="1" />
+	<score>1</score>
+	<weight correct="1" incorrect="-1" />
+	<point>30</point>
+</evaluate>
+<explanation>2つのオペランドの関係を表現する、比較演算子の項を参照のこと。</explanation>
+		</item>
+
+    <item id="1" type="select_single">
+        <question><p>[a]に当てはまるものは何か？以下の3つから一つ選択しなさい。</p>
+</question>
+<response id="0">[a] x &lt;= 65 ,[b] x &lt; 85</response>
+<response id="1">[a] x &lt; 65 ,[b] x &gt;= 85</response>
+<response id="2">[a] x &gt;= 65 ,[b] x &gt; 85</response>
+<hints>ヒント</hints>
+<evaluate>
+	<function></function>
+	<correct id="1" />
+	<score>1</score>
+	<weight correct="1" incorrect="-1" />
+	<point>30</point>
+</evaluate>
+<explanation>2つのオペランドの関係を表現する、比較演算子の項を参照のこと。</explanation>
+		</item>
+
+    <item id="0" type="select_single">
+        <question><p>[a]に当てはまるものは何か？以下の3つから一つ選択しなさい。</p>
+</question>
+<response id="0">[a] x &lt;= 65 ,[b] x &lt; 85</response>
+<response id="1">[a] x &lt; 65 ,[b] x &gt;= 85</response>
+<response id="2">[a] x &gt;= 65 ,[b] x &gt; 85</response>
+<hints>ヒント</hints>
+<evaluate>
+	<function></function>
+	<correct id="1" />
+	<score>1</score>
+	<weight correct="1" incorrect="-1" />
+	<point>30</point>
+</evaluate>
+<explanation>2つのオペランドの関係を表現する、比較演算子の項を参照のこと。</explanation>
+		</item>
+
+    <item id="2" type="select_single">
+        <question><p>[a]に当てはまるものは何か？以下の3つから一つ選択しなさい。</p>
+</question>
+<response id="0">[a] x &lt;= 65 ,[b] x &lt; 85</response>
+<response id="1">[a] x &lt; 65 ,[b] x &gt;= 85</response>
+<response id="2">[a] x &gt;= 65 ,[b] x &gt; 85</response>
+<hints>ヒント</hints>
+<evaluate>
+	<function></function>
+	<correct id="1" />
+	<score>1</score>
+	<weight correct="1" incorrect="-1" />
+	<point>30</point>
+</evaluate>
+<explanation>2つのオペランドの関係を表現する、比較演算子の項を参照のこと。</explanation>
+		</item>
+
+    <item id="3" type="select_single">
+        <question><p>[a]に当てはまるものは何か？以下の3つから一つ選択しなさい。</p>
+</question>
+<response id="0">[a] x &lt;= 65 ,[b] x &lt; 85</response>
+<response id="1">[a] x &lt; 65 ,[b] x &gt;= 85</response>
+<response id="2">[a] x &gt;= 65 ,[b] x &gt; 85</response>
+<hints>ヒント</hints>
+<evaluate>
+	<function></function>
+	<correct id="1" />
+	<score>1</score>
+	<weight correct="1" incorrect="-1" />
+	<point>30</point>
+</evaluate>
+<explanation>2つのオペランドの関係を表現する、比較演算子の項を参照のこと。</explanation>
+		</item>
+
+
+</problem_set>
