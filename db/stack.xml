@@ -3,25 +3,7 @@
     <item id="0" type="select_single">
         <question><p>[A]に当てはまるものは何か？以下の3つから一つ選択しなさい。</p>
 </question>
-<response id="0"></response>
-<response id="1">FirstCell(pcList) != (struct cell*)NULL</response>
-<response id="2"></response>
-<hints>ヒント</hints>
-<evaluate>
-	<function></function>
-	<correct id="1" />
-	<score>1</score>
-	<weight correct="1" incorrect="-1" />
-	<point>30</point>
-</evaluate>
-<explanation>分岐の条件：先頭セルが空でないとき</explanation>
-		</item>
-
-
-    <item id="1" type="select_single">
-        <question><p>[B]に当てはまるものは何か？以下の3つから一つ選択しなさい。</p>
-</question>
-<response id="0">(pcNext=NextCell(pcNext,pcList)) != pcCell</response>
+<response id="0">pcStack != (struct array_stack *)NULL</response>
 <response id="1"></response>
 <response id="2"></response>
 <hints>ヒント</hints>
@@ -32,7 +14,25 @@
 	<weight correct="1" incorrect="-1" />
 	<point>30</point>
 </evaluate>
-<explanation>繰り返しの条件：指定されたセルと等しいセルを見つけるまで</explanation>
+<explanation></explanation>
+		</item>
+
+
+    <item id="1" type="select_single">
+        <question><p>[B]に当てはまるものは何か？以下の3つから一つ選択しなさい。</p>
+</question>
+<response id="0"></response>
+<response id="1"></response>
+<response id="2">pcStack -> length == 0</response>
+<hints>ヒント</hints>
+<evaluate>
+	<function></function>
+	<correct id="2" />
+	<score>1</score>
+	<weight correct="1" incorrect="-1" />
+	<point>30</point>
+</evaluate>
+<explanation></explanation>
 		</item>
 
 
@@ -42,7 +42,7 @@
         <question><p>[C]に当てはまるものは何か？以下の3つから一つ選択しなさい。</p>
 </question>
 <response id="0"></response>
-<response id="1">(struct cell*)malloc(sizeof(struct cell))</response>
+<response id="1">n = TopStack(pcStack);</response>
 <response id="2"></response>
 <hints>ヒント</hints>
 <evaluate>
@@ -50,9 +50,9 @@
 	<correct id="1" />
 	<score>1</score>
 	<weight correct="1" incorrect="-1" />
-	<point>20</point>
+	<point>30</point>
 </evaluate>
-<explanation>アドレス空間の動的領域確保です。思い出しましょう。</explanation>
+<explanation></explanation>
 		</item>
 
 
@@ -63,16 +63,16 @@
 </question>
 <response id="0"></response>
 <response id="1"></response>
-<response id="2">pcInsert->pcNext=pcCell;<br />pcPrevious=PreviousCell(pcCell,pcList);<br />pcPrevious->pcNext=pcInsert;</response>
+<response id="2">return -1;</response>
 <hints>ヒント</hints>
 <evaluate>
 	<function></function>
 	<correct id="2" />
 	<score>1</score>
 	<weight correct="1" incorrect="-1" />
-	<point>50</point>
+	<point>20</point>
 </evaluate>
-<explanation>・・・</explanation>
+<explanation></explanation>
 		</item>
 
 
@@ -81,9 +81,9 @@
 
 
     <item id="4" type="select_single">
-        <question><p>[E]に当てはまるものは何か？以下の3つから一つ選択しなさい。</p>
+        <question><p>[E],[F]に当てはまるものは何か？以下の3つから一つ選択しなさい。</p>
 </question>
-<response id="0">pcPrevious->pcNext=pcNext;</response>
+<response id="0">[E] pcStack->elements[pcStack->length - 1] = -1; [F] pcStack->length--;</response>
 <response id="1"></response>
 <response id="2"></response>
 <hints>ヒント</hints>
@@ -92,30 +92,9 @@
 	<correct id="0" />
 	<score>1</score>
 	<weight correct="1" incorrect="-1" />
-	<point>30</point>
+	<point>40</point>
 </evaluate>
-<explanation>間のセルがなくなれば，どんな処理が必要でしょうか？</explanation>
+<explanation></explanation>
 		</item>
-
-
-
-
-    <item id="5" type="select_single">
-        <question><p>[F]に当てはまるものは何か？以下の3つから一つ選択しなさい。</p>
-</question>
-<response id="0">free(pcCell);</response>
-<response id="1"></response>
-<response id="2"></response>
-<hints>ヒント</hints>
-<evaluate>
-	<function></function>
-	<correct id="0" />
-	<score>1</score>
-	<weight correct="1" incorrect="-1" />
-	<point>20</point>
-</evaluate>
-<explanation>メモリ領域の解放です。</explanation>
-		</item>
-
 
 </problem_set>
