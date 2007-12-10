@@ -96,10 +96,10 @@ params = qs.params
 case params["mode"].to_s
 when "set" then # 出題  
   # Webサーバからドキュメントを取得
-  http = Net::HTTP.new(base_eXist_host, base_eXist_port)
-  req = Net::HTTP::Get.new(base_call_uri)
+  #http = Net::HTTP.new(base_eXist_host, base_eXist_port)
+  #req = Net::HTTP::Get.new(base_call_uri)
 
-  res = http.request(req)
+  #res = http.request(req)
 
   # ダミーの呼び出し記述
   #params["src"] = res.body
