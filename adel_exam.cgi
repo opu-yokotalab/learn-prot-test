@@ -349,7 +349,8 @@ when "result" then # テスト全体の評価結果出力
 
   # ブラウザで表示させるためのおまじない
   print "Content-type: text/html\n\n"
-  print "<result>" + str + "</result>"
+  #print "<result>" + str + "</result>"
+  print str
   
 when "get_testkey" # 作成したテストの固有識別子(一度の出題限り有効)
   # 受け取ったユーザidの一番新しい出題のtest_keyを渡せばいいんじゃないかと。
@@ -371,7 +372,8 @@ when "get_testkey" # 作成したテストの固有識別子(一度の出題限り有効)
   
   # ブラウザで表示させるためのおまじない
   print "Content-type: text/html\n\n"
-  print "<test_key>" + str + "</test_key>"
+  #print "<test_key>" + str + "</test_key>"
+  print str
 
 else # その他・指定無し
   # とりあえずエラー画面でも見せとく
