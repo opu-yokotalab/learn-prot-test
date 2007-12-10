@@ -183,7 +183,7 @@ when "pre_evaluate" then # プレ評価
   setHisHash = setHis.get_setHistory(params["ques_pkey"].to_s, conn)
   
   # プレ評価
-  evalResultHash = evalQues.preEvaluate(params["type"].to_s, params["ques_pkey"].to_s, params["value"].to_s, setHisHash)
+  evalResultHash = evalQues.preEvaluate(params["type"].to_s, params["ques_pkey"].to_s, params["value"].to_s, setHisHash, base_eXist_host, base_eXist_port, base_db_uri)
 #p evalResultHash
   # 評価履歴を記録
   setHis.put_preEvalHistory(params["ques_pkey"].to_s, evalResultHash, conn)
@@ -234,7 +234,7 @@ when "evaluate" then # テストの評価
 #p setHisHash
     # 未解答の場合に、未解答のログをつける
     evalResultHash = Hash.new
-    evalResultHash = evalQues.preEvaluate("radio", "NULL", "NULL", setHisHash)
+    evalResultHash = evalQues.preEvaluate("radio", "NULL", "NULL", setHisHash, base_eXist_host, base_eXist_port, base_db_uri)
 #p evalResultHash
     # 評価履歴を記録
     evalHis.put_preEvalHistory(params["ques_pkey"].to_s, evalResultHash, conn)
@@ -310,7 +310,7 @@ when "result" then # テスト全体の評価結果出力
 #p setHisHash
       # 未解答の場合に、未解答のログをつける
       evalResultHash = Hash.new
-      evalResultHash = evalQues.preEvaluate("radio", "NULL", "NULL", setHisHash)
+      evalResultHash = evalQues.preEvaluate("radio", "NULL", "NULL", setHisHash, base_eXist_host, base_eXist_port, base_db_uri)
 #p evalResultHash
       # 評価履歴を記録
       evalHis.put_preEvalHistory(tblLine["eval_key"].to_s, evalResultHash, conn)      
