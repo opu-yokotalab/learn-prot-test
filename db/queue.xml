@@ -3,13 +3,13 @@
     <item id="0" type="select_single">
         <question><p>[A]に当てはまるものは何か？以下の3つから一つ選択しなさい。</p>
 </question>
-<response id="0">pcStack != (struct array_stack *)NULL</response>
-<response id="1"></response>
+<response id="0"></response>
+<response id="1">pcQueue->length == 0</response>
 <response id="2"></response>
 <hints>ヒント</hints>
 <evaluate>
 	<function></function>
-	<correct id="0" />
+	<correct id="1" />
 	<score>1</score>
 	<weight correct="1" incorrect="-1" />
 	<point>30</point>
@@ -23,7 +23,7 @@
 </question>
 <response id="0"></response>
 <response id="1"></response>
-<response id="2">pcStack -> length == 0</response>
+<response id="2">pcQueue->elements[pcQueue->front]</response>
 <hints>ヒント</hints>
 <evaluate>
 	<function></function>
@@ -39,15 +39,15 @@
 
 
     <item id="2" type="select_single">
-        <question><p>[C]に当てはまるものは何か？以下の3つから一つ選択しなさい。</p>
+        <question><p>[C],[D]に当てはまるものは何か？以下の3つから一つ選択しなさい。</p>
 </question>
-<response id="0"></response>
-<response id="1">n = TopStack(pcStack);</response>
+<response id="0">[C] pcQueue->elements[pcQueue->front] = -1; [D] pcQueue->front++;</response>
+<response id="1"></response>
 <response id="2"></response>
 <hints>ヒント</hints>
 <evaluate>
 	<function></function>
-	<correct id="1" />
+	<correct id="0" />
 	<score>1</score>
 	<weight correct="1" incorrect="-1" />
 	<point>30</point>
@@ -59,11 +59,11 @@
 
 
     <item id="3" type="select_single">
-        <question><p>[D]に当てはまるものは何か？以下の3つから一つ選択しなさい。</p>
+        <question><p>[E]に当てはまるものは何か？以下の3つから一つ選択しなさい。</p>
 </question>
 <response id="0"></response>
 <response id="1"></response>
-<response id="2">return -1;</response>
+<response id="2">pcQueue->front == Max</response>
 <hints>ヒント</hints>
 <evaluate>
 	<function></function>
@@ -81,9 +81,9 @@
 
 
     <item id="4" type="select_single">
-        <question><p>[E],[F]に当てはまるものは何か？以下の3つから一つ選択しなさい。</p>
+        <question><p>[F]に当てはまるものは何か？以下の3つから一つ選択しなさい。</p>
 </question>
-<response id="0">[E] pcStack->elements[pcStack->length - 1] = -1; [F] pcStack->length--;</response>
+<response id="0">pcQueue->front = 0;</response>
 <response id="1"></response>
 <response id="2"></response>
 <hints>ヒント</hints>
@@ -92,7 +92,42 @@
 	<correct id="0" />
 	<score>1</score>
 	<weight correct="1" incorrect="-1" />
+	<point>30</point>
+</evaluate>
+<explanation></explanation>
+		</item>
+
+
+    <item id="5" type="select_single">
+        <question><p>[G]に当てはまるものは何か？以下の3つから一つ選択しなさい。</p>
+</question>
+<response id="0"></response>
+<response id="1"></response>
+<response id="2">pcQueue->elements[(pcQueue->length + pcQueue -> front)% Max] = data;</response>
+<hints>ヒント</hints>
+<evaluate>
+	<function></function>
+	<correct id="2" />
+	<score>1</score>
+	<weight correct="1" incorrect="-1" />
 	<point>40</point>
+</evaluate>
+<explanation></explanation>
+		</item>
+
+    <item id="6" type="select_single">
+        <question><p>[H]に当てはまるものは何か？以下の3つから一つ選択しなさい。</p>
+</question>
+<response id="0">pcQueue->length++;</response>
+<response id="1"></response>
+<response id="2"></response>
+<hints>ヒント</hints>
+<evaluate>
+	<function></function>
+	<correct id="0" />
+	<score>1</score>
+	<weight correct="1" incorrect="-1" />
+	<point>20</point>
 </evaluate>
 <explanation></explanation>
 		</item>
