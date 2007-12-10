@@ -57,24 +57,24 @@ pgsql_user_name = "postgres"
 pgsql_user_passwd = "postnamabu"
 
 # 問題DB
-base_db_uri = "/exist/rest//db/home/learn/examination/db/"
+base_db_uri = "/exist/rest//db/adel_v2/examination/db/"
 
 # XSLTスタイルシート
-base_xslt_all_uri = "/exist/rest//db/home/learn/examination/test.xsl"
-base_xslt_eval_uri = "/exist/rest//db/home/learn/examination/evaluate.xsl"
+base_xslt_all_uri = "/exist/rest//db/adel_v2/examination/test.xsl"
+base_xslt_eval_uri = "/exist/rest//db/adel_v2/examination/evaluate.xsl"
 
 # XHTML変換時に問題形式からinput要素のtype属性値
 # を決定するための変換テーブル
-base_inputType_uri = "/exist/rest//db/home/learn/examination/input_type.xml"
+base_inputType_uri = "/exist/rest//db/adel_v2/examination/input_type.xml"
 
 
 # 以下テスト用 
 # 呼び出し記述
-#base_call_uri = "/exist/rest//db/home/learn/examination/examination_prot.xml" 
-base_call_uri = "/exist/rest//db/home/learn/examination/saiki_examin.xml"
+#base_call_uri = "/exist/rest//db/adel_v2/examination/examination_prot.xml" 
+#base_call_uri = "/exist/rest//db/adel_v2/examination/saiki_examin.xml"
 
 # エラー時に表示するxhtml
-base_err_uri = "/exist/rest//db/home/learn/examination/error.xml"
+base_err_uri = "/exist/rest//db/adel_v2/examination/error.xml"
 
 
 ## -- 本処理 --
@@ -102,7 +102,7 @@ when "set" then # 出題
   res = http.request(req)
 
   # ダミーの呼び出し記述
-  params["src"] = res.body
+  #params["src"] = res.body
 
   ## 本処理  
   # DOMオブジェクトに変換
