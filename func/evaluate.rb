@@ -69,7 +69,7 @@ class Evaluate
     res = http.request(req)
     
     # Webサーバからドキュメントを取得
-    http = Net::HTTP.new('base_eXist_host", base_eXist_port)
+    http = Net::HTTP.new('base_eXist_host', base_eXist_port)
     req = Net::HTTP::Get.new(base_db_uri + setHisHash["group_id"] + ".xml?_query=//problem_set/item[@id=%22" + setHisHash["ques_id"]  + "%22]")
     res = http.request(req)
     
