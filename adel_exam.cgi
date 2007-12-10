@@ -52,9 +52,9 @@ base_pgsql_host = 'localhost'
 # postgreSQL用接続ポート
 base_pgsql_port = 5432
 # ユーザ名
-pgsql_user_name = "postgres"
+pgsql_user_name = "learn"
 # パスワード
-pgsql_user_passwd = "postnamabu"
+pgsql_user_passwd = "learn"
 
 # 問題DB
 base_db_uri = "/exist/rest//db/adel_v2/examination/db/"

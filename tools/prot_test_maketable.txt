@@ -20,5 +20,5 @@ incrct_total_weight	text,
 total_weight	text,
 time	timestamp without time zone,
 eval_key	text,
-evaluate_pkey	text not null	primary key,
+evaluate_pkey	text not null	primary key
 );
