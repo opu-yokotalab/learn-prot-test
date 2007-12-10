@@ -346,6 +346,7 @@ when "result" then # テスト全体の評価結果出力
   normHash.each{|key, value|
     str = str + key.to_s + ":" + value.to_s + ","
   }
+  str = str.slice(0, str.size - 1)
 
   # ブラウザで表示させるためのおまじない
   print "Content-type: text/html\n\n"
