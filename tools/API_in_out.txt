@@ -1,0 +1,52 @@
+﻿テスト機構プロトタイプ Version 2.0
+APIの引数と返り値
+
+出題
+・入力
+mode : set
+user_id : "各ユーザID"
+
+・出力
+xhtml
+
+
+プレ評価
+・入力
+mode : pre_evaluate
+selected : 選択肢(xhtmlのinput要素)が持つid属性値（今回の実装では内部的に不要）
+type : 問題の種類（現状ではradioのみサポート）
+value : 選択肢(xhtmlのinput要素)が持つvalue属性地
+ques_pkey : 選択肢(xhtmlのinput要素)が持つques_pkey属性値
+
+・出力
+評価結果
+（e_result要素のテキストノード）
+
+
+評価（問題の解答確定）
+・入力
+mode : evaluate
+name : 解答ボタン(xhtmlのinput要素)が持つname属性値
+ques_pkey : 解答ボタン(xhtmlのinput要素)が持つques_pkey属性値
+
+・出力
+問題ごとの評価結果を表すxhtmlの部分木
+
+
+正規化した評価結果
+・入力
+mode : result
+test_key : テストの持つ固有識別子（以下のmode : get_testkeyで取得）
+
+・出力
+正規化した評価結果（グループID,点数;）
+result要素のテキストノードとして出力
+
+テストの固有識別子の取得
+・入力
+mode : get_testkey
+user_id : ユーザID
+
+・出力
+テストの固有識別子
+test_key要素のテキストノードとして出力
