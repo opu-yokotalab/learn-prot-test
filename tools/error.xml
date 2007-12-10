@@ -1,0 +1,9 @@
+<?doc type="doctype" role="title" { XHTML 1.1 } ?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="-//W3C//DTD XHTML 1.1//EN">
+    <head profile="">
+        <title>テスト機構プロトタイプ【システムエラー】</title>
+    </head>
+    <body xml:space="preserve">
+        <p xml:space="preserve">システムエラーが発生しました。</p>
+    </body>
+</html>
