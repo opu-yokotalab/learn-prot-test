@@ -89,7 +89,7 @@
 <hints>ヒント</hints>
 <evaluate>
 	<function></function>
-	<correct id="1" />
+	<correct id="0" />
 	<score>1</score>
 	<weight correct="1" incorrect="-1" />
 	<point>30</point>
