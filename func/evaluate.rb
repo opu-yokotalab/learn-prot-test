@@ -39,11 +39,11 @@ class Evaluate
   # 引数：ques_pkey(出題した問題の固有識別子)
   #       selectHash(解答に含まれる情報を分解したハッシュ)
   #       setHisHash(ques_pkeyで特定される問題の出題履歴)
-  def preEvaluate(type, ques_pkey, value, setHisHash)
+  def preEvaluate(type, ques_pkey, value, setHisHash, base_eXist_host, base_eXist_port, base_db_uri)
     # 問題形式によって評価方法を変える
     case type
     when "radio" then # 単一選択
-      result = evalRadioType(ques_pkey, value, setHisHash)
+      result = evalRadioType(ques_pkey, value, setHisHash, base_eXist_host, base_eXist_port, base_db_uri)
     when "checkbox" then # 複数選択
       # 複数選択の評価は、選択肢を選んだ履歴を考慮する必要がある
       return -1
