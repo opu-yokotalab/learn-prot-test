@@ -3,29 +3,9 @@
     <item id="0" type="select_single">
         <question><p>[A]に当てはまるものは何か？以下の3つから一つ選択しなさい。</p>
 </question>
-<response id="0">ct[n] != '\0'</response>
-<response id="1">str[n] != '\0'</response>
-<response id="2">ct[n] != '\n'</response>
-<hints>ヒント</hints>
-<evaluate>
-	<function></function>
-	<correct id="0" />
-	<score>1</score>
-	<weight correct="1" incorrect="-1" />
-	<point>20</point>
-</evaluate>
-<explanation>繰り返しの条件：文字列ctの末尾が来るまで。</explanation>
-		</item>
-
-
-
-
-    <item id="1" type="select_single">
-        <question><p>[B]に当てはまるものは何か？以下の3つから一つ選択しなさい。</p>
-</question>
-<response id="0">ct[n] = str[n]</response>
-<response id="1">str[n] = ct[n]</response>
-<response id="2">str[n] = str[n]</response>
+<response id="0"></response>
+<response id="1">FirstCell(pcList) != (struct cell*)NULL</response>
+<response id="2"></response>
 <hints>ヒント</hints>
 <evaluate>
 	<function></function>
@@ -34,7 +14,25 @@
 	<weight correct="1" incorrect="-1" />
 	<point>30</point>
 </evaluate>
-<explanation>処理の内容：ctをstrにコピーする。</explanation>
+<explanation>分岐の条件：先頭セルが空でないとき</explanation>
+		</item>
+
+
+    <item id="1" type="select_single">
+        <question><p>[B]に当てはまるものは何か？以下の3つから一つ選択しなさい。</p>
+</question>
+<response id="0">(pcNext=NextCell(pcNext,pcList)) != pcCell</response>
+<response id="1"></response>
+<response id="2"></response>
+<hints>ヒント</hints>
+<evaluate>
+	<function></function>
+	<correct id="0" />
+	<score>1</score>
+	<weight correct="1" incorrect="-1" />
+	<point>30</point>
+</evaluate>
+<explanation>繰り返しの条件：指定されたセルと等しいセルを見つけるまで</explanation>
 		</item>
 
 
@@ -43,18 +41,18 @@
     <item id="2" type="select_single">
         <question><p>[C]に当てはまるものは何か？以下の3つから一つ選択しなさい。</p>
 </question>
-<response id="0">str[n] = '\0'</response>
-<response id="1">ct[n] = '\0'</response>
-<response id="2">str[n] = '\n'</response>
+<response id="0"></response>
+<response id="1">(struct cell*)malloc(sizeof(struct cell))</response>
+<response id="2"></response>
 <hints>ヒント</hints>
 <evaluate>
 	<function></function>
-	<correct id="0" />
+	<correct id="1" />
 	<score>1</score>
 	<weight correct="1" incorrect="-1" />
 	<point>20</point>
 </evaluate>
-<explanation>strの末尾にヌル文字を追加しておくのを忘れてはいけない。</explanation>
+<explanation>アドレス空間の動的領域確保です。思い出しましょう。</explanation>
 		</item>
 
 
@@ -63,18 +61,18 @@
     <item id="3" type="select_single">
         <question><p>[D]に当てはまるものは何か？以下の3つから一つ選択しなさい。</p>
 </question>
-<response id="0">char str, char ct</response>
-<response id="1">char *str</response>
-<response id="2">char *str, char *ct</response>
+<response id="0"></response>
+<response id="1"></response>
+<response id="2">pcInsert->pcNext=pcCell;<br />pcPrevious=PreviousCell(pcCell,pcList);<br />pcPrevious->pcNext=pcInsert;</response>
 <hints>ヒント</hints>
 <evaluate>
 	<function></function>
 	<correct id="2" />
 	<score>1</score>
 	<weight correct="1" incorrect="-1" />
-	<point>10</point>
+	<point>50</point>
 </evaluate>
-<explanation>前のページの簡単な内容の方に答えが載ってますよ。</explanation>
+<explanation>・・・</explanation>
 		</item>
 
 
@@ -85,49 +83,9 @@
     <item id="4" type="select_single">
         <question><p>[E]に当てはまるものは何か？以下の3つから一つ選択しなさい。</p>
 </question>
-<response id="0">7</response>
-<response id="1">strlen(str)</response>
-<response id="2">strlen(str) - 1</response>
-<hints>ヒント</hints>
-<evaluate>
-	<function></function>
-	<correct id="1" />
-	<score>1</score>
-	<weight correct="1" incorrect="-1" />
-	<point>40</point>
-</evaluate>
-<explanation>文字列strの末尾の番地を指定します。四の五の言わずに動かしてみれば分かりますよ。</explanation>
-		</item>
-
-
-
-
-    <item id="5" type="select_single">
-        <question><p>[F]に当てはまるものは何か？以下の3つから一つ選択しなさい。</p>
-</question>
-<response id="0">str[n] != ct[n]</response>
-<response id="1">str[n] == '\0'</response>
-<response id="2">str[n] == ct[n]</response>
-<hints>ヒント</hints>
-<evaluate>
-	<function></function>
-	<correct id="2" />
-	<score>1</score>
-	<weight correct="1" incorrect="-1" />
-	<point>20</point>
-</evaluate>
-<explanation>比較を継続する条件ようく思い出してみましょう。</explanation>
-		</item>
-
-
-
-
-    <item id="6" type="select_single">
-        <question><p>[G]に当てはまるものは何か？以下の3つから一つ選択しなさい。</p>
-</question>
-<response id="0">ct[n] != '\0'</response>
-<response id="1">str[n] != '\0'</response>
-<response id="2">str[n] != '\n'</response>
+<response id="0">pcPrevious->pcNext=pcNext;</response>
+<response id="1"></response>
+<response id="2"></response>
 <hints>ヒント</hints>
 <evaluate>
 	<function></function>
@@ -136,47 +94,28 @@
 	<weight correct="1" incorrect="-1" />
 	<point>30</point>
 </evaluate>
-<explanation>比較を継続する条件をようく思い出してみましょう。あと，問題のソースプログラムもチェックしましょう。</explanation>
+<explanation>間のセルがなくなれば，どんな処理が必要でしょうか？</explanation>
 		</item>
 
 
 
-    <item id="7" type="select_single">
-        <question><p>[H]に当てはまるものは何か？以下の3つから一つ選択しなさい。</p>
+
+    <item id="5" type="select_single">
+        <question><p>[F]に当てはまるものは何か？以下の3つから一つ選択しなさい。</p>
 </question>
-<response id="0">n++;</response>
-<response id="1">n+=2;</response>
-<response id="2">str++;</response>
+<response id="0">free(pcCell);</response>
+<response id="1"></response>
+<response id="2"></response>
 <hints>ヒント</hints>
 <evaluate>
 	<function></function>
 	<correct id="0" />
 	<score>1</score>
 	<weight correct="1" incorrect="-1" />
-	<point>5</point>
+	<point>20</point>
 </evaluate>
-<explanation>簡単でしょ？配点は低いですよ。</explanation>
+<explanation>メモリ領域の解放です。</explanation>
 		</item>
-
-
-
-    <item id="8" type="select_single">
-        <question><p>[I]に当てはまるものは何か？以下の3つから一つ選択しなさい。</p>
-</question>
-<response id="0">(unsigned char)str[n]</response>
-<response id="1">str[n]</response>
-<response id="2">(unsigned char)ct[n]</response>
-<hints>ヒント</hints>
-<evaluate>
-	<function></function>
-	<correct id="0" />
-	<score>1</score>
-	<weight correct="1" incorrect="-1" />
-	<point>10</point>
-</evaluate>
-<explanation>文字の比較は unsigned char を使用します。</explanation>
-		</item>
-
 
 
 </problem_set>
