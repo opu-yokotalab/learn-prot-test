@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problem_set id="list1">
+    <item id="0" type="select_single">
+        <question><p>練習問題2の解答として適当なものはどれか？一つ選択せよ．</p>
+</question>
+<response id="0">a.next = b</response>
+<response id="1">a->next = b</response>
+<response id="2">b->next = a</response>
+<hints>ヒント</hints>
+<evaluate>
+	<function></function>
+	<correct id="1" />
+	<score>1</score>
+	<weight correct="1" incorrect="-1" />
+	<point>50</point>
+</evaluate>
+<explanation>構造体ポインタ変数のときのメンバの参照の仕方は？</explanation>
+		</item>
+
+
+    <item id="1" type="select_single">
+        <question><p>練習問題3の解答として適当なものはどれか？一つ選択せよ．</p>
+</question>
+<response id="0">printf("name : %s\n",b->name);</response>
+<response id="1">printf("name : %s\n",a->next.name);</response>
+<response id="2">printf("name : %s\n",a->next->name);</response>
+<hints>ヒント</hints>
+<evaluate>
+	<function></function>
+	<correct id="2" />
+	<score>1</score>
+	<weight correct="1" incorrect="-1" />
+	<point>50</point>
+</evaluate>
+<explanation>bは使ったらダメですよ。</explanation>
+		</item>
+
+		
+</problem_set>
