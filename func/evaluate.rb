@@ -63,11 +63,6 @@ class Evaluate
   # 複数選択、自由記述は今後の課題と言う事でひとつ
   def evalRadioType(ques_pkey, value, setHisHash, base_eXist_host, base_eXist_port, base_db_uri)
     # 履歴から出題した問題を取得
-      # Webサーバからドキュメントを取得
-    http = Net::HTTP.new(base_eXist_host, base_eXist_port)
-    req = Net::HTTP::Get.new(base_err_uri)
-    res = http.request(req)
-    
     # Webサーバからドキュメントを取得
     http = Net::HTTP.new(base_eXist_host, base_eXist_port)
     req = Net::HTTP::Get.new(base_db_uri + setHisHash["group_id"] + ".xml?_query=//problem_set/item[@id=%22" + setHisHash["ques_id"]  + "%22]")
