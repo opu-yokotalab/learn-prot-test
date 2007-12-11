@@ -45,9 +45,9 @@
         </p>
     </xsl:template>
    <xsl:template match="response">
-        <li>
+        <ul><li>
             <xsl:copy-of select="./node()"/>
-        </li>
+        </li></ul>
     </xsl:template>
     <xsl:template match="explanation">
         <xsl:text>解説：</xsl:text>
