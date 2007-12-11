@@ -274,8 +274,9 @@ when "evaluate" then # テストの評価
 
   # 選んだ選択肢の装飾（赤太字）
   xpath_str = "/div[@id=\"item_" + setHisHash["group_id"] + "_" + setHisHash["ques_id"] + "\"]/div[@id=\"response_" + setHisHash["group_id"] + "_" + setHisHash["ques_id"] + "\"]/ul/li[@id=\"" + setHisHash["ques_id"] + "\"]/"
+$stderr.print xpath_str + "\n"
   xhtmlElem.elements[xpath_str].add_attribute("style", "{ color:red; font-weight:bolder }")
-  
+
   # ブラウザで表示させるためのおまじない
   print "Content-type: text/html\n\n"
   print xhtmlElem
