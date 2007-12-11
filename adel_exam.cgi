@@ -143,7 +143,7 @@ when "set" then # 出題
 
   # ブラウザで表示させるためのおまじない
   print "Content-type: text/html\n\n"
-  print xhtmlElem.get_elements("//body/node()")
+  print xhtmlElem.get_elements("//body/node()").to_s
 
 when "pre_evaluate" then # プレ評価
   ## ダミー解答
@@ -238,6 +238,9 @@ when "evaluate" then # テストの評価
 #p evalResultHash
     # 評価履歴を記録
     evalHis.put_preEvalHistory(params["ques_pkey"].to_s, evalResultHash, conn)
+
+  # 再度ques_pkeyからプレ評価履歴を取得
+  evalHisHash = evalHis.get_preEvalHistory(params["ques_pkey"].to_s, conn)
   end
 
   # 確定した解答にマークをつける
@@ -266,7 +269,7 @@ when "evaluate" then # テストの評価
 
   # 提示に必要な情報を付け加える
   xpath_str = "/div[@id=\"item_" + setHisHash["group_id"] + "_" + setHisHash["ques_id"] + "\"]/div[@id=\"title_" + setHisHash["group_id"] + "_" + setHisHash["ques_id"] + "\"]/h2"
-  if evalHisHash["eval_result"] != "0" then
+  if evalHisHash["eval_result"].to_i  >= evalHisHash["total_point"].to_i then # 問題の点数に満たないとき不正解
     xhtmlElem.elements[xpath_str].add_text(Kconv.kconv("正解!", Kconv::UTF8))
   else
     xhtmlElem.elements[xpath_str].add_text(Kconv.kconv("不正解...", Kconv::UTF8))
