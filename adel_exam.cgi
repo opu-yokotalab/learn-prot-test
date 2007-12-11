@@ -271,12 +271,12 @@ when "evaluate" then # テストの評価
   else
     xhtmlElem.elements[xpath_str].add_text(Kconv.kconv("不正解...", Kconv::UTF8))
   end
-$stderr.print xhtmlElem.to_s + "\n"
+#$stderr.print xhtmlElem.to_s + "\n"
 
-  # 選んだ選択肢の装飾（赤太字）
-  xpath_str = "/div[@id=\"item_" + setHisHash["group_id"] + "_" + setHisHash["ques_id"] + "\"]/div[@id=\"response_" + setHisHash["group_id"] + "_" + setHisHash["ques_id"] + "\"]/ul/li[@id=\"" + setHisHash["ques_id"] + "\"]/"
-$stderr.print xpath_str + "\n"
-  xhtmlElem.elements[xpath_str].add_attribute("style", "{ color:red; font-weight:bolder }")
+  # 選んだ選択肢の装飾（赤太字） ちょっと動かない。あとで原因究明
+#  xpath_str = "/div[@id=\"item_" + setHisHash["group_id"] + "_" + setHisHash["ques_id"] + "\"]/div[@id=\"response_" + setHisHash["group_id"] + "_" + setHisHash["ques_id"] + "\"]/ul/li[@id=\"" + setHisHash["ques_id"] + "\"]/"
+#$stderr.print xpath_str + "\n"
+#  xhtmlElem.elements[xpath_str].add_attribute("style", "{ color:red; font-weight:bolder }")
 
   # ブラウザで表示させるためのおまじない
   print "Content-type: text/html\n\n"
