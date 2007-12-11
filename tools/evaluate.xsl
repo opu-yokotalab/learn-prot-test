@@ -28,7 +28,9 @@
                     <xsl:text>response_</xsl:text>
                     <xsl:value-of select="@id"/>
                 </xsl:attribute>
+                <ul>
                 <xsl:apply-templates select="response"/>
+                </ul>
             </div>
             <div>
                 <xsl:attribute name="id">
@@ -45,9 +47,9 @@
         </p>
     </xsl:template>
    <xsl:template match="response">
-        <ul><li>
+        <li>
             <xsl:copy-of select="./node()"/>
-        </li></ul>
+        </li>
     </xsl:template>
     <xsl:template match="explanation">
         <xsl:text>解説：</xsl:text>

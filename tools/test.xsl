@@ -114,7 +114,7 @@
         </p>
     </xsl:template>
     <xsl:template match="response">
-        <ul><li>
+        <li>
             <input xsl:use-attribute-sets="responseLists"/>
             <label>
                 <xsl:attribute name="for">
@@ -124,7 +124,7 @@
                 </xsl:attribute>
                 <xsl:copy-of select="./node()"/>
             </label>
-        </li></ul>
+        </li>
     </xsl:template>
     <xsl:template match="hints">
 		<!-- &lt;xsl:text&gt;ヒント：&lt;/xsl:text&gt;&lt;xsl:copy-of select="./node()" /&gt; -->
