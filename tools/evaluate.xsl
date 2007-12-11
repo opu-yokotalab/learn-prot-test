@@ -25,6 +25,13 @@
             </div>
             <div>
                 <xsl:attribute name="id">
+                    <xsl:text>response_</xsl:text>
+                    <xsl:value-of select="@id"/>
+                </xsl:attribute>
+                <xsl:apply-templates select="response"/>
+            </div>
+            <div>
+                <xsl:attribute name="id">
                     <xsl:text>explanation_</xsl:text>
                     <xsl:value-of select="@id"/>
                 </xsl:attribute>
@@ -36,6 +43,11 @@
         <p>
             <xsl:copy-of select="./node()"/>
         </p>
+    </xsl:template>
+   <xsl:template match="response">
+        <li>
+            <xsl:copy-of select="./node()"/>
+        </li>
     </xsl:template>
     <xsl:template match="explanation">
         <xsl:text>解説：</xsl:text>
