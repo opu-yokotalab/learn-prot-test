@@ -143,7 +143,7 @@ when "set" then # 出題
 
   # ブラウザで表示させるためのおまじない
   print "Content-type: text/html\n\n"
-  print xhtmlElem
+  print xhtmlElem.get_elements("//body/node()")
 
 when "pre_evaluate" then # プレ評価
   ## ダミー解答
@@ -265,13 +265,17 @@ when "evaluate" then # テストの評価
   xhtmlElem = setQues.make_xhtml(setElem.elements["//item"], base_eXist_host, base_eXist_port, base_xslt_eval_uri)
 
   # 提示に必要な情報を付け加える
+  xpath_str = "/div[@id=\"item_" + setHisHash["group_id"] + "_" + setHisHash["ques_id"] + "\"]/div[@id=\"title_" + setHisHash["group_id"] + "_" + setHisHash["ques_id"] + "\"]/h2"
   if evalHisHash["eval_result"] != "0" then
-    xhtmlElem.elements["/div/div/h2"].add_text(Kconv.kconv("正解!", Kconv::UTF8))
+    xhtmlElem.elements[xpath_str].add_text(Kconv.kconv("正解!", Kconv::UTF8))
   else
-    xhtmlElem.elements["/div/div/h2"].add_text(Kconv.kconv("不正解...", Kconv::UTF8))
+    xhtmlElem.elements[xpath_str].add_text(Kconv.kconv("不正解...", Kconv::UTF8))
   end
 
-  
+  # 選んだ選択肢の装飾（赤太字）
+  xpath_str = "/div[@id=\"item_" + setHisHash["group_id"] + "_" + setHisHash["ques_id"] + "\"]/div[@id=\"response_" + setHisHash["group_id"] + "_" + setHisHash["ques_id"] + "\"]/ul/li[@id=\"" + setHisHash["ques_id"] + "\"]/"
+  xhtmlElem.elements[xpath_str].add_attribute("style", "{ color:red; font-weight:bolder }")
+
   # ブラウザで表示させるためのおまじない
   print "Content-type: text/html\n\n"
   print xhtmlElem

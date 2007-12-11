@@ -48,6 +48,9 @@
     </xsl:template>
    <xsl:template match="response">
         <li>
+            <xsl:attribute name="id">
+                <xsl:value-of select="@id"/>
+            </xsl:attribute>
             <xsl:copy-of select="./node()"/>
         </li>
     </xsl:template>
