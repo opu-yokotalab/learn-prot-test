@@ -1,0 +1,86 @@
+\section{外部仕様}
+テスト機構への要求は、すべてインタフェースであるadel\_exam.cgiに対して行われる。
+テスト機構が提供する機能は以下の通り。
+\begin{enumerate}
+\item テスト全体の出題
+\item プレ評価（選択肢を選んだ時点での事前評価）
+\item 本評価（解答ボタンを押した時点での最終的な評価）
+\item 正規化したテストの成績（テスト全体の評価）
+\item 今現在出題しているテストIDの取得
+\end{enumerate}
+
+これらの機能の呼び出しは、adel\_exam.cgiの引数modeに特定の値を指定する事で行う。
+\begin{verbatim}
+例）./adel_exam.cgi?mode=set&user_id=manabu
+\end{verbatim}
+以下に上記の機能を呼び出す際の具体的な入出力について述べる．
+
+\begin{enumerate}
+\item {\bf テスト全体の出題}
+	\begin{description}
+	\item {{\bf 入力}}
+		\begin{description}
+		\item {{\bf mode}} set
+		\item {{\bf src}} 問題呼び出し記述(examination要素以下)
+		\item {{\bf user\_id}} ユーザID
+		\end{description}
+	\item {{\bf 出力}} \\
+	xhtml(body要素の子要素。body要素は含まない)
+	\end{description}
+
+\item {\bf プレ評価}
+	\begin{description}
+	\item {{\bf 入力}}
+		\begin{description}
+		\item {{\bf mode}} pre\_evaluate
+		\item {{\bf ques\_pkey}} 問題の固有識別子（xhtml中のinput要素の属性値から取得）
+		\item {{\bf value}} 選んだ選択肢の識別子（xhtml中のinput要素の属性値から取得）
+		\item {{\bf type}} 問題の種類（現状ではradioのみサポート）
+		\item {{\bf selected}} 選んだ選択肢（xhtml中のinput要素の属性値から取得）【今回の実装では未使用】
+		\end{description}
+	\item {{\bf 出力}}\\
+	e\_result要素。この要素は評価結果をテキスト要素として保持している。
+	デバッグに用いていただけなので、実際には使用していない。
+	\end{description}
+
+\item {{\bf 本評価}}
+	\begin{description}
+	\item {{\bf 入力}}
+		\begin{description}
+			\item {{\bf mode}} evaluate
+			\item {{\bf ques\_pkey}} 問題の固有識別子（出題したテストのinput要素の属性値から取得）
+			\item {{\bf name}} 選んだ選択肢（xhtml中のinput要素の属性値から取得）【今回の実装では未使用】
+		\end{description}
+	\item {{\bf 出力}}\\
+	問題単位の評価結果。評価結果、問題文、選択肢、解説を含んだxhtml。
+	これを問題を提示しているdiv要素にinnerHTMLメソッドを用いて表示させる。
+	\end{description}
+
+
+\item {\bf 正規化したテストの成績}
+	\begin{description}
+	\item {{\bf 入力}}
+		\begin{description}
+			\item {{\bf mode}} result
+			\item {{\bf test\_key}} テストの固有識別子（下記のテストの固有識別子から取得）
+		\end{description}
+	\item {{\bf 出力}}\\
+	テスト全体の評価結果。
+	問題グループと点数をコロン、この組をカンマで区切る文字列を返す。
+	\begin{verbatim}例）group1:10,group2:50\end{verbatim}
+	未解答の問題がある場合、その問題は誤答したものとして扱われる。
+	\end{description}
+	
+	
+\item {\bf テストIDの取得}
+	\begin{description}
+	\item {\bf 入力}
+		\begin{description}
+		\item {\bf mode} get\_testkey
+		\item {\bf user\_id} ユーザID
+		\end{description}
+	\item {{\bf 出力}}\\
+	user\_idで指定されたユーザに出題された最新のテストID。
+	テストの成績の問合せに用いる。
+	\end{description}
+\end{enumerate}

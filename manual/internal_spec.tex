@@ -1,0 +1,494 @@
+\section{内部仕様}
+
+\subsection{履歴DBのスキーマ}
+\subsubsection{出題履歴}
+出題履歴のスキーマを以下に示す。
+ここで注意が必要な物として、test\_keyとexamination\_pkeyがある。
+前者はテストに付与されるIDであるが、同じtest\_idを持つテストを複数回出題する可能性があるため、それぞれのテストを
+区別するために毎回違うIDが付与される。
+後者も同じく、同じ問題候補IDを持つ問題が複数回出題される可能性があるため、出題の度に違うIDが付与される。
+
+\begin{table}[htb]
+\begin{center}
+\caption{出題履歴のスキーマ}
+\begin{tabular}{|l|c|}
+\hline
+カラム & コメント \\ \hline \hline
+user\_id & ユーザID \\ \hline
+test\_id & examination記述中のテストID \\ \hline
+group\_id & 問題グループID \\ \hline
+group\_mark & 問題グループに設定された配点 \\ \hline
+ques\_id & 問題候補ID \\ \hline
+ques\_pass & 評価基準点（未使用） \\ \hline
+test\_key & 出題の度に付与されるテストのID \\ \hline
+time & 出題した時間 \\ \hline
+examination\_pkey  & 出題の度に付与される問題のID（主キー） \\ \hline
+\end{tabular}
+\label{tab:setHistory}
+\end{center}
+\end{table} 
+
+\subsubsection{評価履歴}
+
+\begin{table}[htb]
+\begin{center}
+\caption{評価履歴のスキーマ}
+\begin{tabular}{|l|c|}
+\hline
+カラム & コメント \\ \hline \hline
+chk\_selection & 選んだ選択肢  \\ \hline
+eval\_result & 獲得した点数  \\ \hline
+total\_point & 問題の配点 \\ \hline
+comp\_eval &  解答が確定したかのフラグ \\ \hline
+crct\_total\_weight & 重みの合計値 \\ \hline
+incrct\_total\_weight & 不正解の重み \\ \hline
+total\_weight & 正解の重み \\ \hline
+time &  評価した時間 \\ \hline
+eval\_key & 出題の度に付与される問題のID（出題履歴の外部キー） \\ \hline
+evaluate\_pkey &  プレ評価の度に付与されるID（主キー） \\ \hline
+\end{tabular}
+\label{tab:evalHistory}
+\end{center}
+\end{table} 
+
+\subsection{インタフェースと主処理}
+adel\_exam.cgiは、インタフェースとしての機能の他に、各機能別モジュールを操作し処理を行うC言語で言う所の
+main関数に近い働きを行う。
+
+\subsubsection{主要変数}
+データベースに接続するための設定は、以下に挙げるadel\_exam.cgiの変数に格納する。
+\begin{description}
+\item {{\bf base\_eXist\_host}} eXistが起動しているホスト名
+\item {{\bf base\_eXist\_port}} eXistに接続するためのポート番号
+\item {{\bf base\_pgsql\_host}} PostgreSQLが起動しているホスト名
+\item {{\bf base\_pgsql\_port}} PostgreSQLに接続するためのポート番号
+\item {{\bf pgsql\_user\_name}} PostgreSQLに接続するためのユーザ名
+\item {{\bf pgsql\_user\_passwd}} PostgreSQLに接続するユーザのパスワード（平文である事に注意）
+\end{description}
+
+各データベースに対して問合せを行うための設定一覧を以下に挙げる。
+\begin{description}
+\item {{\bf base\_db\_uri}} テスト問題を格納している問題DB
+\item {{\bf base\_xslt\_all\_uri}} テスト画面全体を作るためのXSLTスタイルシート
+\item {{\bf base\_xslt\_eval\_uri}} 各問題の画面を作るためのXSLTスタイルシート
+\end{description}
+
+テストの出題と評価に関する設定
+\begin{description}
+\item {{\bf base\_inputType\_uri}} 問題形式からxhtmlのinput要素のtype属性値を決定するための変換テーブル
+\end{description}
+
+その他の設定
+\begin{description}
+\item {{\bf base\_err\_uri}} エラー時に表示するxhtml
+\end{description}
+
+\subsubsection{処理の大まかな流れ}
+このプログラムの処理は、実行時に渡されたmodeの引数によって5つの処理に大別される。
+modeの値は、paramsにハッシュの一部として格納される。このmodeキーの値によって実行すべき処理を決定する。
+\begin{verbatim}
+例）puts params["mode"] # modeキーの値を表示
+\end{verbatim}
+以下に、それぞれの処理の大まかな流れを述べる。
+
+\subsubsection*{テスト全体の出題}
+テストの出題は、問題呼び出し記述を受け取り、その内容を一度ハッシュに格納する。
+ハッシュは出題する問題ごとに作られ、最終的にはハッシュのリスト（setTable変数）となる。ここではこれを出題テーブルと呼ぶ。
+出題テーブル作成の際に、問題グループからランダムや問題形式を指定と言った出題に対して、実際に出題される問題が決定される。
+また、テスト中の出題された各問題とテストその物に対してそれぞれ固有識別子が付与される。
+出題された各問題に付与された固有識別子は、プレ評価と本評価の際に用いられる。
+
+次に、この出題テーブルを用いて出題履歴を記録され、さらに実際に提示するテスト画面となるxhtmlの作成が行われる。
+xhtmlの作成には、一度中間的なxml文書が作成され、これをXSLTを用いてxhtmlと変換を行う。
+
+\subsubsection*{プレ評価}
+プレ評価は、テストが記述されたxhtml中のinput要素が持つtype属性値とvalue属性値を、問題DB中の問題記述が持つ評価用の情報
+とを照らし合わせることで行う。
+どの問題を出題したかという問題DBに対する問合せは、出題履歴を用いて行われる。
+評価は正解の重みと不正解の重みを用いた評価が行われ、評価結果が評価履歴に記録される。
+
+\subsubsection*{本評価}
+本評価では、プレ評価で行った評価結果をもとに解答を確定する。この処理は出題した各問題ごとに行われる。
+まず、プレ評価結果が存在するかを評価履歴に対して問合せを行い、無かった場合は未解答として評価履歴に記録する。
+これは後ほど正規化の際に、誤答として扱われる。
+プレ評価結果があった場合は、一番最新のプレ評価結果に対して確定済みのマークを評価履歴に対して記録する。
+
+次に、学習者に提示するための評価結果を記述したxhtmlの生成を行う。
+この時、評価履歴中に記録された点数の閾値と実際に獲得した点数との比較を行い、閾値に達していた場合は正解、達していなかった場合は
+不正解といった提示を行う。
+
+\subsubsection*{正規化したテストの成績}
+テストの成績の正規化では、確定された評価結果を用いて正規化を行う。
+確定された解答が無い問題に対しては、評価履歴に未解答として記録し、その問題を誤答として扱う。
+正規化の計算は評価用モジュールによって行われ、ハッシュとして得られた結果を書式化し、これを返り値として返す。
+
+\subsubsection*{テストIDの取得}
+テストIDの取得では、受け取ったユーザIDに出題されたテストの一番新しい固有識別子を返す。
+
+
+\subsection{出題モジュール}
+出題に関する機能を持つモジュールはset\_question.rbである。
+このモジュールはインタフェース兼主処理を行うadel\_exam.cgiから呼び出され、使用される。
+以下に、出題モジュールが持つメソッドの外部仕様を示す。
+
+\subsubsection{各メソッドの外部仕様}
+\begin{itemize}
+\item initialize
+\begin{description}
+\item {{\bf 概要}} Set\_questionクラスのインスタンス生成時に実行される。
+\item {{\bf 入力}}
+	\begin{description}
+	\item {{\bf user\_id}} ユーザID
+	\end{description}
+\item {{\bf 出力}}\\
+	無し。最後に評価された変数の値が返る事があるが、内容については保証しない。
+\end{description}
+
+\item make\_table
+\begin{description}
+\item {{\bf 概要}} 問題呼び出し記述を内部的な出題テーブルに変換。
+\item {{\bf 入力}}
+	\begin{description}
+	\item {{\bf input\_xml}} 呼び出し記述（REXML::Elementクラスのオブジェクト）
+	\item {{\bf base\_eXist\_host}} eXistが動作しているホスト名
+	\item {{\bf base\_eXist\_port}} eXistに接続するためのポート番号
+	\item {{\bf base\_db\_uri}} eXist中にある問題DBのURI（set\_tableメソッド中で使用）
+	\end{description}
+\item {{\bf 出力}}\\
+	作成された出題テーブル。データ構造はハッシュのリスト。
+\begin{verbatim}
+例）
+{{"group_id" => 問題グループのID, "mark" => 配点, "item_id" => 問題候補のID, "ques_pass" => 評価用閾値, "ques_type" => 問題形式, "selection_type" => 出題形式, "ques_correct" => 履歴を考慮した出題, "time" => 出題時間, "test_key" => 出題の度に付与される問題のID},{...}}
+\end{verbatim}
+\end{description}
+
+\item set\_table
+\begin{description}
+\item {{\bf 概要}} ランダム、問題形式を指定と言った出題に対して、実際に出題する問題を決定する。make\_tableメソッドから呼び出される。
+\item {{\bf 入力}}
+	\begin{description}
+	\item {{\bf tbl}} make\_tableメソッドで作成した出題テーブル（ハッシュのリスト）
+	\item {{\bf base\_eXist\_host}} eXistが動作しているホスト名
+	\item {{\bf base\_eXist\_port}} eXistに接続するためのポート番号
+	\item {{\bf base\_db\_uri}} eXist中にある問題DBのURI
+	\end{description}
+\item {{\bf 出力}}\\
+	出題する問題がすべて確定した出題テーブル。
+\end{description}
+
+\item make\_xml
+\begin{description}
+\item {{\bf 概要}} 出題テーブルからXSLTで変換するための中間XML文書を作成。
+\item {{\bf 入力}}
+	\begin{description}
+	\item {{\bf tbl}} make\_tableメソッドで作成した出題テーブル（ハッシュのリスト）
+	\item {{\bf base\_eXist\_host}} eXistが動作しているホスト名
+	\item {{\bf base\_eXist\_port}} eXistに接続するためのポート番号
+	\item {{\bf base\_db\_uri}} eXist中にある問題DBのURI
+	\item {{\bf base\_inputType\_uri}} 問題形式からxhtmlのinput要素のtype属性値を決めるための変換テーブル
+	\end{description}
+\item {{\bf 出力}}\\
+	生成した中間XML文書（REXML::Elementオブジェクト）
+\end{description}
+
+\item make\_xhtml
+\begin{description}
+\item {{\bf 概要}} 作成した中間XML文書からxhtmlを作成。
+\item {{\bf 入力}}
+	\begin{description}
+	\item {{\bf input\_xml}} make\_xmlメソッドで作成した中間XML文書（REXML::Elementオブジェクト）
+	\item {{\bf base\_eXist\_host}} eXistが動作しているホスト名
+	\item {{\bf base\_eXist\_port}} eXistに接続するためのポート番号
+	\item {{\bf base\_xslt\_uri}} eXist中にあるXSLTスタイルシートのURI
+	\end{description}
+\item {{\bf 出力}}\\
+	作成したxhtml（REXML::Elementオブジェクト）。
+\end{description}
+
+\item get\_item
+\begin{description}
+\item {{\bf 概要}} 問題グループのIDと問題候補のIDから該当する問題記述を問題DBから取得。
+\item {{\bf 入力}}
+	\begin{description}
+	\item {{\bf group\_id}} 問題グループのID
+	\item {{\bf item\_id}} 問題グループ中の問題候補のID
+	\item {{\bf base\_eXist\_host}} eXistが動作しているホスト名
+	\item {{\bf base\_eXist\_port}} eXistに接続するためのポート番号
+	\item {{\bf base\_db\_uri}} eXist中にある問題DBのURI
+	\end{description}
+\item {{\bf 出力}}\\
+	該当する問題記述（REXML::Elementオブジェクト）
+\end{description}
+
+\item get\_itemId
+\begin{description}
+\item {{\bf 概要}} あるテストの出題時に、問題グループ中のまだ出題されていない問題候補のIDを返す（ランダムで1つ）。
+\item {{\bf 入力}}
+	\begin{description}
+	\item {{\bf group\_id}} 問題グループのID
+	\item {{\bf item\_type}} 問題形式
+	\item {{\bf itemList}} 既にに出題されている問題候補のIDリスト
+	\item {{\bf mode}} ランダム出題か問題形式の指定か
+	\item {{\bf base\_eXist\_host}} eXistが動作しているホスト名
+	\item {{\bf base\_eXist\_port}} eXistに接続するためのポート番号
+	\item {{\bf base\_db\_uri}} eXist中にある問題DBのURI
+	\end{description}
+\item {{\bf 出力}}\\
+	出題されていない問題候補があれば、そのID。無ければ-1が返る。
+\end{description}
+
+\item get\_testId
+\begin{description}
+\item {{\bf 概要}} 現在出題中のテストIDを返す。
+\item {{\bf 入力}}\\
+	無し
+\item {{\bf 出力}}\\
+	テストID
+\end{description}
+
+\item convInputType
+\begin{description}
+\item {{\bf 概要}} 問題記述中の問題形式から解答形式（input要素のtype属性値）を決定。make\_xmlメソッドから呼ばれる。
+\item {{\bf 入力}}
+	\begin{description}
+	\item {{\bf type}} 問題形式
+	\item {{\bf base\_eXist\_host}} eXistが動作しているホスト名
+	\item {{\bf base\_eXist\_port}} eXistに接続するためのポート番号
+	\item {{\bf base\_inputType\_uri}} 問題形式からxhtmlのinput要素のtype属性値を決めるための変換テーブル
+	\end{description}
+\item {{\bf 出力}}\\
+		base\_inputType\_uriで指定された変換テーブルに記述されたtype属性値。
+\end{description}
+
+\item randomize
+\begin{description}
+\item {{\bf 概要}} 出題テーブル中の要素をシャッフル
+\item {{\bf 入力}}
+	\begin{description}
+	\item {{\bf tbl}} make\_tableメソッドで作成した出題テーブル（ハッシュのリスト）
+	\end{description}
+\item {{\bf 出力}}\\
+	シャッフルされた出題テーブル
+\end{description}
+\end{itemize}
+
+\subsection{評価モジュール}
+評価に関する機能を持つモジュールはevaluate.rbである。
+このモジュールはインタフェース兼主処理を行うadel\_exam.cgiから呼び出され、使用される。
+以下に、評価モジュールが持つメソッドの外部仕様を示す。
+
+\subsubsection{各メソッドの外部仕様}
+\begin{itemize}
+\item initialize
+\begin{description}
+\item {{\bf 概要}} Evaluateクラスのインスタンス生成時に実行される。
+\item {{\bf 入力}}\\
+	無し
+\item {{\bf 出力}}\\
+	無し
+\end{description}
+
+\item preEvaluate
+\begin{description}
+\item {{\bf 概要}} 選んだ選択肢のプレ評価（事前評価）を行う。実際の評価は問題形式ごとに用意した評価メソッドを用いる。
+\item {{\bf 入力}}
+	\begin{description}
+	\item {{\bf type}} 問題形式
+	\item {{\bf ques\_pkey}} 出題の度に付与される問題ID
+	\item {{\bf value}} xhtml中のinput要素（選んだ選択肢）が持つvalue属性値
+	\item {{\bf setHisHash}} 固有識別子にques\_pkeyを持つ問題の出題履歴
+	\item {{\bf base\_eXist\_host}} eXistが動作しているホスト名
+	\item {{\bf base\_eXist\_port}} eXistに接続するためのポート番号
+	\item {{\bf base\_db\_uri}} 問題DBのURI
+	\end{description}
+\item {{\bf 出力}}\\
+	評価結果を返す。サポートしていない形式だった場合は-1を返す。
+\end{description}
+
+\item evalRadioType
+\begin{description}
+\item {{\bf 概要}} 単一選択問題の評価を行う。preEvaluateメソッドから呼ばれる。
+\item {{\bf 入力}}
+	\begin{description}
+	\item {{\bf ques\_pkey}} 出題の度に付与される問題ID
+	\item {{\bf value}} xhtml中のinput要素（選んだ選択肢）が持つvalue属性値
+	\item {{\bf setHisHash}} 固有識別子にques\_pkeyを持つ問題の出題履歴
+	\item {{\bf base\_eXist\_host}} eXistが動作しているホスト名
+	\item {{\bf base\_eXist\_port}} eXistに接続するためのポート番号
+	\item {{\bf base\_db\_uri}} 問題DBのURI
+	\end{description}
+\item {{\bf 出力}}\\
+	評価結果を格納したハッシュ。
+\begin{verbatim}
+例）
+{"chk_selection" => 選んだ選択肢, "eval_result" => 取得したポイント "crct_weight" => 正解の重みの合計値, "incrct_weight" => 不正解の重みの合計値, "total_weight" => 重みの合計値, "eval_pkey" => 問題ID, "time" => 評価した時間, "total_point" => 正解時に与えられるポイント}
+\end{verbatim}
+\end{description}
+
+\item evaluate
+\begin{description}
+\item {{\bf 概要}} 評価結果の正規化
+\item {{\bf 入力}}
+	\begin{description}
+	\item {{\bf tbl}} あるテストの評価結果の履歴（ハッシュのリスト）
+	\end{description}
+\item {{\bf 出力}}\\
+	正規化された評価結果。
+	問題グループと点数をコロン、この組をカンマで区切る文字列を返す。
+\begin{verbatim}
+例）group1:10,group2:50
+\end{verbatim}
+\end{description}
+
+\end{itemize}
+
+\subsection{履歴モジュール}
+履歴に関する機能を持つモジュールはhistory.rbである。
+このモジュールはインタフェース兼主処理を行うadel\_exam.cgiから呼び出され、使用される。
+以下に、履歴モジュールが持つメソッドの外部仕様を示す。
+% なお、簡単な名前規則として、setHistoryは出題履歴、preEvalHistoryはプレ評価履歴、evalHistoryは確定した評価履歴を指す。
+また、PostgreSQLに接続するためにRuby-PostgreSQLモジュールを利用している。
+
+\subsubsection{各メソッドの外部仕様}
+\begin{itemize}
+\item initialize
+\begin{description}
+\item {{\bf 概要}} Historyクラスのインスタンス生成時に実行される。
+\item {{\bf 入力}}\\
+	無し
+\item {{\bf 出力}}\\
+	無し
+\end{description}
+
+\item open\_setHistory
+\begin{description}
+\item {{\bf 概要}} 履歴DBに接続する。
+\item {{\bf 入力}}
+	\begin{description}
+	\item {{\bf base\_pgsql\_host}} PostgreSQLが動作しているホスト名
+	\item {{\bf base\_pgsql\_port}} PostgreSQLに接続するためのポート番号
+	\item {{\bf pgsql\_user\_name}} PostgreSQLに接続するためのユーザ名
+	\item {{\bf pgsql\_user\_passwd}} PostgreSQLに接続するためのパスワード
+	\end{description}
+\item {{\bf 出力}}\\
+	PGconnクラスのインスタンスを返す。
+\end{description}
+
+\item close\_setHistory
+\begin{description}
+\item {{\bf 概要}} 履歴DBから切断する。
+\item {{\bf 入力}}
+	\begin{description}
+	\item {{\bf conn}} PGconnクラスのオブジェクト
+	\end{description}
+\item {{\bf 出力}}\\
+	切断された場合には0を返す。
+\end{description}
+
+\item put\_setHistory
+\begin{description}
+\item {{\bf 概要}} 出題テーブルの内容を履歴DBの出題履歴に1問単位で記録する。
+\item {{\bf 入力}}
+	\begin{description}
+	\item {{\bf user\_id}} ユーザID
+	\item {{\bf test\_id}} テストID
+	\item {{\bf tblLine}} 1問単位の出題情報（ハッシュ）。出題テーブルの1要素に当たる。
+	\item {{\bf conn}} PGconnクラスのオブジェクト
+	\end{description}
+\item {{\bf 出力}}\\
+	記録に成功した場合は0を返す。
+\end{description}
+
+\item get\_setHistory
+\begin{description}
+\item {{\bf 概要}} 出題履歴から、指定された出題の度に付与される問題IDを持つ履歴を返す。
+\item {{\bf 入力}}
+	\begin{description}
+	\item {{\bf pkey}} 出題の度に付与される問題のID
+	\item {{\bf conn}} PGconnクラスのオブジェクト
+	\end{description}
+\item {{\bf 出力}}\\
+	取得した履歴（ハッシュ）を返す。
+\end{description}
+
+\item put\_preEvalHistory
+\begin{description}
+\item {{\bf 概要}} プレ評価の評価結果を評価履歴に記録する。
+\item {{\bf 入力}}
+	\begin{description}
+	\item {{\bf eval\_key}} 出題の度に付与される問題ID
+	\item {{\bf evalResultHash}} プレ評価の評価結果（ハッシュ）
+	\item {{\bf conn}} PGconnクラスのオブジェクト
+	\end{description}
+\item {{\bf 出力}}\\
+	記録に成功した場合は0を返す。
+\end{description}
+
+\item get\_preEvalHistory
+\begin{description}
+\item {{\bf 概要}} プレ評価の履歴を返す。
+\item {{\bf 入力}}
+	\begin{description}
+	\item {{\bf pkey}} 出題の度に付与される問題ID
+	\item {{\bf conn}} PGconnクラスのオブジェクト
+	\end{description}
+\item {{\bf 出力}}\\
+	評価履歴のeval\_keyにpkeyの内容と同じ内容を持つ履歴のうち、最新の物（ハッシュ）を返す。
+\end{description}
+
+\item put\_evalHistory
+\begin{description}
+\item {{\bf 概要}} 確定した解答の履歴を記録する。
+\item {{\bf 入力}}
+	\begin{description}
+	\item {{\bf pkey}} 出題の度に付与される問題ID
+	\item {{\bf conn}} PGconnクラスのオブジェクト
+	\end{description}
+\item {{\bf 出力}}\\
+	取得に成功したら0を返す。
+\end{description}
+
+\item get\_evalHistory
+\begin{description}
+\item {{\bf 概要}} 指定したテストID（test\_key）の確定した解答の履歴を返す。
+\item {{\bf 入力}}
+	\begin{description}
+	\item {{\bf test\_key}} 出題の度に付与されるテストID
+	\item {{\bf conn}} PGconnクラスのオブジェクト
+	\end{description}
+\item {{\bf 出力}}\\
+	確定した解答の履歴を返す（ハッシュのリスト）。
+\end{description}
+
+\item get\_testidByUserid
+\begin{description}
+\item {{\bf 概要}} 指定されたユーザIDを持つ最新の出題の度に付与されるテストIDを返す。
+\item {{\bf 入力}}
+	\begin{description}
+	\item {{\bf user\_id}} ユーザID
+	\item {{\bf conn}} PGconnクラスのオブジェクト
+	\end{description}
+\item {{\bf 出力}}\\
+	指定されたユーザIDが持つ出題の度に付与されるテストID
+\end{description}
+
+\end{itemize}
+
+\subsection{通信モジュール}
+通信モジュールはevaluate.jsであり、ブラウザとテスト機構との通信を行う時に用いられる。ブラウザで実行するために実装にはJavaScriptが用いられている。
+
+\subsubsection{処理の大まかな流れ}
+大まかな流れとして、プレ評価時には選んだ選択肢の情報を、本評価時には解答した問題に関する情報をテスト機構へと送信する。
+これらの通信は非同期で行われる。それぞれの詳細については以下の通り。
+
+\subsubsection*{プレ評価}
+プレ評価時の通信には、pre\_evaluateメソッドを用いる。メソッドの入力として、選んだ選択肢のDOMオブジェクト（input要素）を与える。
+与えたDOMオブジェクトに含まれるid属性値,type属性値,value属性値,ques\_pkey属性値（出題の度に付与される問題ID）がテスト機構のインタフェースに
+GETメソッドを用いて送信される。返り値は無し。
+
+\subsubsection*{本評価}
+本評価時の通信には、set\_evaluateメソッドを用いる。メソッドの入力として、解答ボタンのDOMオブジェクト（input要素）を与える。
+与えたDOMオブジェクトに含まれるname属性値,ques\_pkey属性値（出題の度に付与される問題ID）がテスト機構のインタフェースに
+GETメソッドを用いて送信される。返り値として、正解不正解の情報を持ったxhtmlの部分木が得られる。
+このxhtmlの部分木を解答した問題を示すdiv要素（id属性に"item\_" + "obj.name"を値として持つ）にinnerHTMLメソッドを用いて
+挿入し、評価結果を学習者に提示する。

@@ -1,0 +1,32 @@
+\section{システムの概要}
+
+\subsection{システムの構成}
+\begin{description}
+\item {{\bf テスト機構インタフェース}}\\
+./adel\_exam.cgi(adel\_exam.rb)
+\item {{\bf テスト機構の機能別モジュール}}
+\begin{description}
+\item {{\bf 出題・評価履歴操作モジュール}}\\
+./func/history.rb
+\item {{\bf 評価モジュール}}\\
+./func/evaluate.rb
+\item {{\bf 出題モジュール}}\\
+./func/set\_question.rb
+\item {{\bf 非同期評価用JavaScript}}\\
+./func/evaluate.js
+\end{description}
+\end{description}
+
+\subsection{開発環境}
+\begin{description}
+\item {{\bf 開発言語}} Ruby, JavaScript, XSLT
+\item {{\bf 履歴DB}} PostgreSQL 8.1.5
+\item {{\bf 問題DB}} eXist 1.1.2
+\item {{\bf その他必要なモジュール}}
+\begin{description}
+\item {{\bf ruby-xslt}}
+\item {{\bf ruby-postgreSQL}}
+\end{description}
+\end{description}
+
+\subsection{テスト機構のインストール}
