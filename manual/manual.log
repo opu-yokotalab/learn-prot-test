@@ -1,4 +1,4 @@
-This is pTeXk, Version 3.141592-p3.1.10 (sjis) (Web2C 7.5.6) (format=platex 2007.4.12)  26 FEB 2008 23:28
+This is pTeXk, Version 3.141592-p3.1.10 (sjis) (Web2C 7.5.6) (format=platex 2007.4.12)  5 MAR 2008 15:58
  Source specials enabled.
 **manual.tex
 (./manual.tex
@@ -95,17 +95,17 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <7> on input line 3.
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <5> on input line 3.
-)
+ [1
+
+])
 \tf@toc=\write3
 \openout3 = `manual.toc'.
 
- [1
-
-]
+ [2]
 \openout2 = `introduction.aux'.
 
  (./introduction.tex)
-[2
+[3
 
 ]
 \openout2 = `summary.aux'.
@@ -115,31 +115,37 @@ LaTeX Font Info:    Font shape `JT1/mc/bx/n' in size <12> not available
 (Font)              Font shape `JT1/gt/m/n' tried instead on input line 3.
 LaTeX Font Info:    Font shape `JY1/mc/bx/n' in size <12> not available
 (Font)              Font shape `JY1/gt/m/n' tried instead on input line 3.
-) [3
+ [4
 
 
 ]
-\openout2 = `external_spec.aux'.
+Overfull \hbox (22.99615pt too wide) in paragraph at lines 69--69
+[]\OT1/cmtt/m/n/10 # ruby extconf.rb --with-xslt-lib=/usr/lib/ --with-xslt-incl
+ude=/usr/include/libxslt[] 
+ []
 
- (./external_spec.tex [4
-
-
-]) [5]
-\openout2 = `internal_spec.aux'.
-
- (./internal_spec.tex
-[6
-
-
-] [7] [8]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 136.
+[5]
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 111.
 
  (d:/usr/local/bin/share/texmf/tex/latex/base/omscmr.fd
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 136.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 111.
+) [6]
+\openout2 = `external_spec.aux'.
 
+
+(./external_spec.tex [7
+
+
+] [8]) [9]
+\openout2 = `internal_spec.aux'.
+
+ (./internal_spec.tex [10
+
+
+] [11] [12]
 Overfull \hbox (26.219pt too wide) in paragraph at lines 162--162
  \OT1/cmtt/m/n/10 ID, "ques_pass" => \JY1/mc/m/n/10 評価用閾値\OT1/cmtt/m/n/10 
 , "ques_type" => \JY1/mc/m/n/10 問題形式\OT1/cmtt/m/n/10 , "selection_type" => 
@@ -153,7 +159,7 @@ Overfull \hbox (38.07458pt too wide) in paragraph at lines 162--162
 /10 , "test_key" => \JY1/mc/m/n/10 出
  []
 
-[9] [10] [11]
+[13] [14] [15]
 Overfull \hbox (66.57985pt too wide) in paragraph at lines 325--325
  []\OT1/cmtt/m/n/10 {"chk_selection" => \JY1/mc/m/n/10 選んだ選択肢\OT1/cmtt/m/
 n/10 , "eval_result" => \JY1/mc/m/n/10 取得したポイント \OT1/cmtt/m/n/10 "crct_
@@ -174,16 +180,16 @@ Overfull \hbox (22.61354pt too wide) in paragraph at lines 325--325
 total_point" => \JY1/mc/m/n/10 正
  []
 
-[12] [13] [14]) [15] [16]
+[16] [17] [18]) [19] [20]
 \openout2 = `task.aux'.
 
- (./task.tex) [17
+ (./task.tex) [21
 
 
 ]
 \openout2 = `history.aux'.
 
- (./history.tex) [18
+ (./history.tex) [22
 
 
 ] (./manual.aux
@@ -192,10 +198,10 @@ total_point" => \JY1/mc/m/n/10 正
 Here is how much of TeX's memory you used:
  675 strings out of 94481
  8093 string characters out of 1174924
- 62383 words of memory out of 1500000
+ 62386 words of memory out of 1500000
  4015 multiletter control sequences out of 10000+50000
  13871 words of font info for 54 fonts, out of 2000000 for 2000
  679 hyphenation exceptions out of 8191
- 25i,8n,21p,306b,481s stack positions out of 3000i,500n,5000p,200000b,5000s
+ 25i,8n,21p,306b,484s stack positions out of 3000i,500n,5000p,200000b,5000s
 
-Output written on manual.dvi (18 pages, 57860 bytes).
+Output written on manual.dvi (22 pages, 69636 bytes).

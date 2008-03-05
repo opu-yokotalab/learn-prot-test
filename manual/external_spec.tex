@@ -1,4 +1,5 @@
 \section{外部仕様}
+\subsection{インタフェースの外部仕様}
 テスト機構への要求は、すべてインタフェースであるadel\_exam.cgiに対して行われる。
 テスト機構が提供する機能は以下の通り。
 \begin{enumerate}
@@ -84,3 +85,39 @@
 	テストの成績の問合せに用いる。
 	\end{description}
 \end{enumerate}
+
+\subsection{記述仕様}
+\subsubsection{問題記述}
+問題候補の記述を以下に示す。この問題候補を子ノードに複数持った物(problem\_set要素)が問題群となる。
+\begin{description}
+\item {{\bf item要素}} 問題候補のルート要素。問題群内での固有識別子であるid属性と、問題形式を表すtype属性を持つ。
+	\begin{description}
+	\item {{\bf question要素}} 問題文を記述する。子ノードにxhtmlの要素を持つ。
+	\item {{\bf response要素}} 選択肢を記述する。選択肢の識別子としてid属性を持つ。
+	\item {{\bf hints要素}} ヒントを記述する。子ノードにxhtmlの要素を持つ。
+	\item {{\bf evaluate要素}} 評価に関する情報を持つ。
+		\begin{description}
+		\item {{\bf function要素}} 外部に設置した評価関数へのURI（未実装）
+		\item {{\bf correct要素}} 正解の選択肢を記述したresponse要素のid属性値
+		\item {{\bf score要素}} この問題を正解とする重みの合計値
+		\item {{\bf weight要素}} 正解の選択肢の重み（correct属性）と不正解の選択肢の重み（incorrect属性）。
+		\item {{\bf point要素}} 正解と判断された時に付与されるポイント。グループの得点率の計算に用いる。
+		\end{description}
+	\item {{\bf explanation要素}} 評価後に提示される解答、解説。子ノードにxhtmlの要素を持つ。
+	\end{description}
+\end{description}
+
+\subsubsection{呼び出し記述}
+\begin{description}
+\item {{\bf examination要素}}呼び出し記述のルート要素。テスト名を表すtitile属性、テストIDを表すid属性、出題順を表すordering属性を持つ。
+	\begin{description}
+	\item {{\bf group要素}} グループ毎の出題に用いる。出題する問題群の指定を行うid属性、グループに対する配点を行うmark属性を持つ。
+		\begin{description}
+		\item {{\bf item要素}} この要素で1問の出題を行う。固有識別子を表すid属性、出題する問題の形式を指定するtype属性を持つ。type属性に問題候補のid属性値を指定すると、直接指定しての出題となる。
+			\begin{description}
+			\item {{\bf selection\_correct要素}} すでに正解した問題であった場合出題しない（未実装）
+			\item {{\bf passing\_grade要素}} 正誤パタンの正規化の名残で今は未使用。次のメンテの時に削除予定。
+			\end{description}
+		\end{description}
+	\end{description}
+\end{description}

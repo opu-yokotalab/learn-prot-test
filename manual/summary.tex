@@ -30,3 +30,87 @@
 \end{description}
 
 \subsection{テスト機構のインストール}
+ここではテスト機構のインストール方法について述べる。
+テスト機構はCGIとして動作するため、ここではあらかじめApacheなどのhttpサーバが稼働しCGIが実行可能であるとする。
+また、PostgreSQLとeXistについてもインストールとユーザの作成が完了し、使用可能であるとする。
+
+\subsubsection{ruby-xsltのインストール}
+まず、ruby内でXSLTを使うためのruby-xsltモジュールをインストールする。ruby-xsltモジュールは以下のサイトからダウンロードできる。
+08年3月5日現在での最新バージョンは0.9.3である。
+\begin{verbatim}
+http://raa.ruby-lang.org/project/ruby-xslt/
+\end{verbatim}
+以下ににモジュールのインストール方法について述べる。
+まず、このモジュールではlibxml,libxsltのヘッダとライブラリが必要になるので先にこれらをインストールする。
+Vine Linuxではaptを用いてインストールできる。
+\begin{verbatim}
+# apt-get install libxml2 libxml2-devel libxslt libxslt-devel
+\end{verbatim}
+さらに、モジュールのコンパイルにRubyの開発環境が必要である場合があるので、これもインストールする。
+\begin{verbatim}
+# apt-get install ruby-devel
+\end{verbatim}
+
+次にダウンロードしたモジュールを展開する。
+\begin{verbatim}
+# tar zxvf ruby-xslt_0.9.3.tar.gz
+\end{verbatim}
+展開後、展開したディレクトリに移動し、コンパイルとインストールを行う。
+\begin{verbatim}
+# ruby extconf.rb
+# make
+# make test
+# make install
+\end{verbatim}
+最初の行でXSLTのヘッダやライブラリが見つからない場合は、明示的にパスを指定する事。
+\begin{verbatim}
+ex)
+# ruby extconf.rb --with-xslt-lib=/usr/lib/ --with-xslt-include=/usr/include/libxslt
+\end{verbatim}
+
+\subsubsection{ruby-postgresqlのインストール}
+このモジュールはRubyからPostgreSQLを利用するためのモジュールである。
+このモジュールのコンパイルにはPostgreSQLの共有ライブラリが必要となるで、インストールする。
+\begin{verbatim}
+# apt-get install postgresql-libs
+\end{verbatim}
+
+次にモジュールをダウンロードする。
+\begin{verbatim}
+http://old.postgresql.jp/interfaces/ruby/index-ja.html
+\end{verbatim}
+ダウンロードしたモジュールを展開する。
+\begin{verbatim}
+# tar zxvf ruby-postgres-0.7.1.tar.gz
+\end{verbatim}
+
+展開後、展開したディレクトリに移動し、コンパイルとインストールを行う。
+\begin{verbatim}
+# ruby extconf.rb
+# make
+# make install 
+\end{verbatim}
+ここで、PostgreSQLの共有ライブラリが見つからない場合は明示的に指定する。
+\begin{verbatim}
+# ruby extconf.rb --with-pgsql-include-dir= /usr/include/pgsql
+                  --with-pgsql-lib-dir=/usr/lib/postgresql/
+\end{verbatim}
+
+\subsubsection{データベースの設定}
+まず、PostgreSQLの設定について説明する。
+同梱されているsqlファイルを用いて、出題、評価の履歴を記録するテーブルを作成する。
+その準備として、データベースを作成する。この例ではデータベース名はexamination\_logsで、所有者はlearnである。
+\begin{verbatim}
+createdb examination_logs -O learn
+\end{verbatim}
+データベースを作成したら、同梱のsqlファイル（./tools内）を用いてテーブルを作成する。
+
+次にeXistの設定について述べる。
+eXistには./toolsディレクトリ内にある、以下のファイルを/db/adel\_v2/examinationに格納する。
+\begin{itemize}
+\item evaluate.xsl
+\item error.xml
+\item input\_type.xml
+\item test.xsl
+\end{itemize}
+問題候補を記述した問題群に関しては、同じくeXistの/db/adel\_v2/examination/dbに格納する。

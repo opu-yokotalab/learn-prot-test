@@ -143,6 +143,7 @@ when "set" then # 出題
 
   # ブラウザで表示させるためのおまじない
   print "Content-type: text/html\n\n"
+  # print xhtmlElem.to_s # 動作確認用（完全なxhtmlを出力）
   print xhtmlElem.get_elements("//body/node()").to_s
 
 when "pre_evaluate" then # プレ評価
